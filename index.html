@@ -86,6 +86,10 @@
       cursor: pointer;
     }
 
+    /* ── HIDE CURSOR IN VIDEO ── */
+    .cursor-hidden,
+    .cursor-hidden * { cursor: none !important; }
+
     /* ── FULLSCREEN HERO ── */
     .hero-reel:-webkit-full-screen { width: 100vw; height: 100vh; }
     .hero-reel:-webkit-full-screen iframe { width: 100%; height: 100%; }
@@ -1013,19 +1017,23 @@
     // Show controls on mouse move over hero, hide after 2s idle
     var heroCtrlTimer;
     var heroControls = document.getElementById('hero-controls');
+    var heroReel = document.querySelector('.hero-reel');
     function showHeroControls() {
       heroControls.style.opacity = '1';
       heroControls.style.pointerEvents = 'auto';
+      heroReel.classList.remove('cursor-hidden');
       clearTimeout(heroCtrlTimer);
       heroCtrlTimer = setTimeout(hideHeroControls, 2000);
     }
     function hideHeroControls() {
       heroControls.style.opacity = '0';
       heroControls.style.pointerEvents = 'none';
+      heroReel.classList.add('cursor-hidden');
     }
-    document.querySelector('.hero-reel').addEventListener('mousemove', showHeroControls);
-    document.querySelector('.hero-reel').addEventListener('mouseleave', function() {
+    heroReel.addEventListener('mousemove', showHeroControls);
+    heroReel.addEventListener('mouseleave', function() {
       clearTimeout(heroCtrlTimer);
+      heroReel.classList.remove('cursor-hidden');
       hideHeroControls();
     });
   </script>
@@ -1199,7 +1207,7 @@
         <!-- Card 5: Lorenzo L. — channel logo -->
         <div class="t-card">
           <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"Mohan has been an exceptional editor. He consistently delivers high-quality work that exceeds expectations. His attention to detail and creative approach make every video stand out."</p>
+          <p class="t-quote">"Amazing work, completed the job fast, cares about the quality of his work and great person all round. Will hire again."</p>
           <div class="t-author-wrap">
             <img src="insane curiosity.jpg" alt="Lorenzo L." class="t-avatar">
             <div>
@@ -1212,7 +1220,7 @@
         <!-- Card 6: Sellfluence — channel logo -->
         <div class="t-card">
           <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"Top-tier editor. Mohan elevated our content to a completely new level. Our engagement shot up after switching to him. Couldn't be happier with the results."</p>
+          <p class="t-quote">"I had a fantastic experience working with Mohan on my recent editing project. From the start, Mohan was communicative and thorough, asking the right questions to fully understand the project's needs. His editing skills and quality of his work are exceptional. He also provided valuable feedback that improved the project. Love to work with him again for sure. 👍"</p>
           <div class="t-author-wrap">
             <img src="sellfluence.jpg" alt="Sellfluence" class="t-avatar">
             <div>
@@ -1225,7 +1233,7 @@
         <!-- Card 7: BarelyFocused — channel logo -->
         <div class="t-card">
           <div class="t-stars">★★★★★</div>
-          <p class="t-quote">"Mohan is a fantastic editor. Every revision was handled quickly and the final result was exactly what we needed."</p>
+          <p class="t-quote">"Mohan is a fantastic editor. Every revision was handled quickly and the final result was exactly what we needed. Our recent videos are performing really well!"</p>
           <div class="t-author-wrap">
             <img src="BarelyFocused.jpg" alt="BarelyFocused" class="t-avatar">
             <div>
@@ -1857,7 +1865,9 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   window.closeLightbox = function() {
     lbPlayer = null; lbPaused = false;
     document.getElementById('v-lightbox-frame').src = '';
-    document.getElementById('v-lightbox').style.display = 'none';
+    var lb = document.getElementById('v-lightbox');
+    lb.style.display = 'none';
+    lb.classList.remove('cursor-hidden');
     document.body.style.overflow = '';
   };
 
@@ -1881,15 +1891,18 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     document.getElementById('v-lb-prev'),
     document.getElementById('v-lb-next')
   ];
+  var lbEl = document.getElementById('v-lightbox');
   function showControls() {
     controls.forEach(function(el) { el.style.opacity='1'; el.style.pointerEvents='auto'; });
+    lbEl.classList.remove('cursor-hidden');
     clearTimeout(hideTimer);
     hideTimer = setTimeout(hideControls, 2000);
   }
   function hideControls() {
     controls.forEach(function(el) { el.style.opacity='0'; el.style.pointerEvents='none'; });
+    lbEl.classList.add('cursor-hidden');
   }
-  document.getElementById('v-lightbox').addEventListener('mousemove', showControls);
+  lbEl.addEventListener('mousemove', showControls);
 })();
 </script>
 </body>
