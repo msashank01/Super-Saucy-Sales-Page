@@ -1266,35 +1266,7 @@
         tIdx = (tIdx + dir + n) % n;
         tSetClasses();
       }
-      // Equalise all card heights on mobile so every card is the same size
-      function tEqualise() {
-        var stack = document.getElementById('t-stack');
-        var cards = Array.from(document.querySelectorAll('#t-stack .t-card'));
-        if (window.innerWidth > 768) {
-          // Reset any mobile overrides on desktop
-          stack.style.minHeight = '';
-          cards.forEach(function(c) { c.style.minHeight = ''; });
-          return;
-        }
-        // Measure each card at its natural height
-        var maxH = 0;
-        cards.forEach(function(card) {
-          var prev = card.style.cssText;
-          card.style.position = 'relative';
-          card.style.opacity = '0';
-          card.style.pointerEvents = 'none';
-          card.style.minHeight = '';
-          maxH = Math.max(maxH, card.offsetHeight);
-          card.style.cssText = prev;
-        });
-        // Apply uniform height to all cards and the stack
-        cards.forEach(function(c) { c.style.minHeight = maxH + 'px'; });
-        stack.style.minHeight = (maxH + 10) + 'px';
-      }
       tSetClasses();
-      // Run after layout settles and on resize
-      setTimeout(tEqualise, 100);
-      window.addEventListener('resize', tEqualise);
     </script>
     <div class="icta" style="padding-top:60px; padding-bottom:0;">
       <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" class="btn btn-lg">DM Me</a>
