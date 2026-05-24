@@ -702,7 +702,9 @@
     }
     @media (max-width: 560px) {
       .f-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
-      .f-col-brand { grid-column: 1 / -1; }
+      .f-col-brand { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .f-col-brand p { max-width: 100%; }
+      .f-col-brand .logo-lg { transform: none; justify-content: center; }
       .f-col:last-child { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; text-align: center; }
       .f-col:last-child ul { align-items: center; }
     }
