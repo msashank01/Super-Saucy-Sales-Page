@@ -722,31 +722,9 @@
       footer    { padding: 56px 0 40px; }
       .f-bottom { flex-direction: column; gap: 12px; text-align: center; }
       /* Let testimonial stack grow with content on mobile */
-      .t-stack  { height: auto !important; padding-bottom: 28px; }
+      .t-stack  { height: auto !important; }
       .t-card.t-active { position: relative; inset: auto; }
       .t-card.t-behind1, .t-card.t-behind2 { display: none; }
-      /* Pseudo-element shadow cards — always match active card size, no bleed */
-      .t-card.t-active::before,
-      .t-card.t-active::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,.1);
-        pointer-events: none;
-      }
-      .t-card.t-active::before {
-        background: linear-gradient(160deg, rgba(255,255,255,.07) 0%, rgba(99,102,241,.05) 100%);
-        transform: translateY(11px) scale(.97);
-        z-index: -1;
-        box-shadow: 0 8px 32px rgba(0,0,0,.35);
-      }
-      .t-card.t-active::after {
-        background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, rgba(99,102,241,.03) 100%);
-        transform: translateY(21px) scale(.94);
-        z-index: -2;
-        box-shadow: 0 8px 24px rgba(0,0,0,.25);
-      }
     }
     @media (max-width: 480px) {
       .hero h1  { letter-spacing: -1.5px; }
