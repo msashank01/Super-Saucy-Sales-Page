@@ -722,10 +722,9 @@
       footer    { padding: 56px 0 40px; }
       .f-bottom { flex-direction: column; gap: 12px; text-align: center; }
       /* Let testimonial stack grow with content on mobile */
-      .t-stack  { height: auto !important; padding-bottom: 32px; }
+      .t-stack  { height: auto !important; }
       .t-card.t-active { position: relative; inset: auto; }
-      .t-card.t-behind1 { display: block; transform: rotate(1deg) translateY(10px) scale(.99); }
-      .t-card.t-behind2 { display: block; transform: rotate(2deg) translateY(20px) scale(.98); }
+      .t-card.t-behind1, .t-card.t-behind2 { display: none; }
     }
     @media (max-width: 480px) {
       .hero h1  { letter-spacing: -1.5px; }
