@@ -721,6 +721,9 @@
       .r-grid   { grid-template-columns: repeat(2,1fr); }
       footer    { padding: 56px 0 40px; }
       .f-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      /* Let testimonial stack grow with content on mobile */
+      .t-stack  { height: auto !important; }
+      .t-card.t-active { position: relative; inset: auto; }
     }
     @media (max-width: 480px) {
       .hero h1  { letter-spacing: -1.5px; }
