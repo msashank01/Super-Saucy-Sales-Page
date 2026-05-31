@@ -718,12 +718,13 @@
       .t-slider-wrap { gap: 16px; }
     }
     @media (max-width: 768px) {
-      /* Stat carousel: pull back inside viewport so both buttons show & sit in the box */
+      /* Stat carousel: pull back inside viewport, abbreviate number (100M+/55M+) */
       #stat-carousel { width: 100% !important; left: 0 !important; transform: none !important; gap: 8px !important; }
       #stat-carousel .t-btn { flex-shrink: 0; }
-      #stat-track { flex: 1; min-width: 0; }
-      #stat-track .stat-glow-wrap,
-      #stat-track [aria-hidden] > div:first-child { font-size: clamp(26px, 7vw, 44px) !important; white-space: nowrap !important; letter-spacing: -1px !important; }
+      #stat-track { flex: 1; min-width: 0; overflow: visible !important; }
+      #stat-track [aria-hidden] { display: none !important; }
+      .stat-slide { position: relative !important; top: auto !important; left: auto !important; width: auto !important; }
+      #stat-track .stat-glow-wrap { font-size: clamp(48px, 15vw, 90px) !important; white-space: nowrap !important; }
       nav, .hero { padding-left: 20px; padding-right: 20px; }
       .container { padding: 0 20px; }
       .section, .section-alt { padding: 72px 0; }
@@ -1347,6 +1348,21 @@
           return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
 
+        function isMobileStat() {
+          return window.matchMedia('(max-width: 768px)').matches;
+        }
+
+        function formatAbbrev(val, target) {
+          if (target >= 1000000) {
+            var dec = (target % 1000000 === 0) ? 0 : 1;
+            return (val / 1000000).toFixed(dec) + 'M';
+          }
+          if (target >= 1000) {
+            return Math.round(val / 1000) + 'K';
+          }
+          return String(Math.round(val));
+        }
+
         function animateDigits(elId, target) {
           var el = document.getElementById(elId);
           if (!el) return;
@@ -1355,6 +1371,7 @@
           if (plusEl) { plusEl.style.opacity = '0'; plusEl.style.animation = 'none'; }
 
           var digits = String(target).length;
+          var abbrev = isMobileStat();
           var DURATION = 2400;
           var startTime = null;
 
@@ -1362,11 +1379,11 @@
             if (!startTime) startTime = now;
             var progress = Math.min((now - startTime) / DURATION, 1);
             var eased = easeOutQuart(progress);
-            el.textContent = formatPadded(eased * target, digits);
+            el.textContent = abbrev ? formatAbbrev(eased * target, target) : formatPadded(eased * target, digits);
             if (progress < 1) {
               requestAnimationFrame(tick);
             } else {
-              el.textContent = target.toLocaleString();
+              el.textContent = abbrev ? formatAbbrev(target, target) : target.toLocaleString();
               if (plusEl) {
                 plusEl.style.animation = 'digit-pop .4s cubic-bezier(.22,1,.36,1) forwards';
               }
