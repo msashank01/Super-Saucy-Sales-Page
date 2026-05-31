@@ -724,7 +724,7 @@
       #stat-track [aria-hidden="true"] { display: none !important; }
       .stat-slide { position: relative !important; top: auto !important; left: auto !important; width: auto !important; padding: 0 !important; }
       #stat-track { overflow: visible !important; width: auto !important; flex: 1; min-width: 0; }
-      .stat-glow-wrap { font-size: clamp(56px, 16vw, 96px) !important; white-space: nowrap !important; }
+      .stat-glow-wrap { font-size: clamp(24px, 7.5vw, 48px) !important; white-space: nowrap !important; }
       nav, .hero { padding-left: 20px; padding-right: 20px; }
       .container { padding: 0 20px; }
       .section, .section-alt { padding: 72px 0; }
@@ -1348,22 +1348,6 @@
           return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
 
-        function isMobileStat() {
-          return window.matchMedia('(max-width: 768px)').matches;
-        }
-
-        function formatAbbrev(val, target) {
-          if (target >= 1000000) {
-            var m = val / 1000000;
-            var dec = (target % 1000000 === 0) ? 0 : 1;
-            return m.toFixed(dec) + 'M';
-          }
-          if (target >= 1000) {
-            return Math.round(val / 1000) + 'K';
-          }
-          return String(Math.round(val));
-        }
-
         function animateDigits(elId, target) {
           var el = document.getElementById(elId);
           if (!el) return;
@@ -1372,7 +1356,6 @@
           if (plusEl) { plusEl.style.opacity = '0'; plusEl.style.animation = 'none'; }
 
           var digits = String(target).length;
-          var abbrev = isMobileStat();
           var DURATION = 2400;
           var startTime = null;
 
@@ -1380,11 +1363,11 @@
             if (!startTime) startTime = now;
             var progress = Math.min((now - startTime) / DURATION, 1);
             var eased = easeOutQuart(progress);
-            el.textContent = abbrev ? formatAbbrev(eased * target, target) : formatPadded(eased * target, digits);
+            el.textContent = formatPadded(eased * target, digits);
             if (progress < 1) {
               requestAnimationFrame(tick);
             } else {
-              el.textContent = abbrev ? formatAbbrev(target, target) : target.toLocaleString();
+              el.textContent = target.toLocaleString();
               if (plusEl) {
                 plusEl.style.animation = 'digit-pop .4s cubic-bezier(.22,1,.36,1) forwards';
               }
