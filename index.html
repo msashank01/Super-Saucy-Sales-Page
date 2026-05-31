@@ -724,6 +724,7 @@
       .lf-grid { grid-template-columns: 1fr; }
       .sf-grid  { grid-template-columns: repeat(2,1fr); }
       .r-grid   { grid-template-columns: repeat(2,1fr); }
+      .r-item-full { grid-column: 1 / -1; }
       footer    { padding: 56px 0 40px; }
       .f-bottom { flex-direction: column; gap: 12px; text-align: center; }
       /* Let testimonial stack grow with content on mobile */
@@ -1541,6 +1542,10 @@
       <div class="r-item">
         <span class="r-num">700K</span>
         <span class="r-label">Views on a single long form</span>
+      </div>
+      <div class="r-item r-item-full">
+        <span class="r-num">55M+</span>
+        <span class="r-label">Total likes across all videos</span>
       </div>
     </div>
   </div>
