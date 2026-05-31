@@ -1283,10 +1283,12 @@
 <!-- ════════════════════════════════
      WORK / CASE STUDIES
 ════════════════════════════════ -->
-<section class="section-alt glass-section" id="about" style="position:relative;overflow:hidden;">
-  <!-- Decorative rotating PR logo -->
-  <img src="pr.png" class="pr-deco" style="right:-80px;top:50%;transform:translateY(-50%) rotate(0deg);animation:slowSpin 18s linear infinite;" alt="">
-  <img src="ae.png" class="pr-deco" style="left:-80px;top:50%;transform:translateY(-50%) rotate(0deg);animation:slowSpin 24s linear infinite reverse;width:200px;height:200px;opacity:.04;" alt="">
+<section class="section-alt glass-section" id="about" style="position:relative;">
+  <!-- Decorative rotating logos — clipped individually so they don't escape the section -->
+  <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+    <img src="pr.png" class="pr-deco" style="right:-80px;top:50%;transform:translateY(-50%) rotate(0deg);animation:slowSpin 18s linear infinite;" alt="">
+    <img src="ae.png" class="pr-deco" style="left:-80px;top:50%;transform:translateY(-50%) rotate(0deg);animation:slowSpin 24s linear infinite reverse;width:200px;height:200px;opacity:.04;" alt="">
+  </div>
   <div class="container">
     <div style="max-width:680px; margin:0 auto; text-align:center;">
       <span class="s-tag">About Me</span>
