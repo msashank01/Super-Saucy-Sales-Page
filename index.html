@@ -719,8 +719,10 @@
     }
     @media (max-width: 768px) {
       /* Stat carousel: drop full-vw trick, shrink font, allow wrap */
-      #stat-carousel { width: 100% !important; left: 0 !important; transform: none !important; gap: 8px !important; }
-      #stat-carousel .t-btn { width: 36px !important; height: 36px !important; flex-shrink: 0; }
+      #stat-carousel { width: 100% !important; left: 0 !important; transform: none !important; position: relative !important; gap: 0 !important; }
+      #stat-carousel .t-btn { position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; }
+      #stat-carousel .t-btn:first-child { left: -8px !important; }
+      #stat-carousel .t-btn:last-child  { right: -8px !important; }
       #stat-track .stat-glow-wrap,
       #stat-track [aria-hidden] > div:first-child { font-size: 36px !important; white-space: nowrap !important; }
       #stat-track { overflow: visible !important; }
