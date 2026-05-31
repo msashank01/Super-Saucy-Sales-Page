@@ -718,10 +718,6 @@
       .t-slider-wrap { gap: 16px; }
     }
     @media (max-width: 768px) {
-      /* Stat carousel: drop full-vw trick, shrink font, allow wrap */
-      #stat-carousel { width: 100% !important; left: 0 !important; transform: none !important; gap: 12px !important; }
-      #stat-track .stat-glow-wrap,
-      #stat-track [aria-hidden] > div:first-child { font-size: clamp(36px,10vw,72px) !important; white-space: normal !important; word-break: break-all; }
       nav, .hero { padding-left: 20px; padding-right: 20px; }
       .container { padding: 0 20px; }
       .section, .section-alt { padding: 72px 0; }
@@ -1301,7 +1297,7 @@
         I'm Mohan Sashank, a freelance video editor. I work with creators and brands to turn raw footage into content that actually holds attention and keeps people watching.<br>Every video is built to perform.
       </p>
 
-      <div id="stat-carousel" style="margin-top:48px; display:flex; align-items:center; justify-content:center; gap:24px; width:100vw; position:relative; left:50%; transform:translateX(-49.3%);">
+      <div style="margin-top:48px; display:flex; align-items:center; justify-content:center; gap:24px; width:100vw; position:relative; left:50%; transform:translateX(-49.3%);">
 
         <!-- Prev -->
         <button onclick="statSlide(-1)" class="t-btn">&#8249;</button>
