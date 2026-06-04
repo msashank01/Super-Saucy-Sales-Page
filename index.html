@@ -580,6 +580,8 @@
     #v-lightbox.lb-port #v-lb-box { width: auto !important; max-width: none !important; }
     #v-lightbox.lb-port #v-lb-aspect { padding-top: 0 !important; height: 86vh !important; aspect-ratio: 9 / 16 !important; }
     @media (max-width: 768px) {
+      /* Landscape (long-form) on phones: widen the box so it isn't tiny */
+      #v-lb-box { width: 96vw !important; max-width: 96vw !important; }
       /* On phones, fill the screen: full width, no rounded corners */
       #v-lightbox.lb-port #v-lb-box { width: 100vw !important; max-width: 100vw !important; }
       #v-lightbox.lb-port #v-lb-aspect { height: auto !important; aspect-ratio: auto !important; padding-top: 177.78% !important; max-height: 100dvh !important; border-radius: 0 !important; }
