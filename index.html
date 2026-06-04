@@ -585,12 +585,12 @@
       #v-lightbox.lb-port #v-lb-aspect { height: auto !important; aspect-ratio: auto !important; padding-top: 177.78% !important; max-height: 100dvh !important; border-radius: 0 !important; }
       #v-lightbox.lb-port #v-lb-close { top: 14px !important; right: 14px !important; z-index: 5; }
     }
-    /* Touch devices have no mousemove to reveal controls — keep nav buttons visible
-       and above the full-width video (otherwise the iframe paints over them). */
+    /* Keep nav buttons above the full-width mobile video so they're tappable
+       when shown (the iframe would otherwise paint over them). */
     @media (hover: none) {
       #v-lightbox #v-lb-prev,
       #v-lightbox #v-lb-next,
-      #v-lightbox #v-lb-close { opacity: 1 !important; pointer-events: auto !important; z-index: 10 !important; }
+      #v-lightbox #v-lb-close { z-index: 10; }
     }
     .thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .thumb-ph {
@@ -1968,6 +1968,8 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     lbEl.classList.add('cursor-hidden');
   }
   lbEl.addEventListener('mousemove', showControls);
+  // Touch devices: reveal controls on tap, then fade out (same as play/pause)
+  lbEl.addEventListener('touchstart', showControls, { passive: true });
 })();
 </script>
 </body>
