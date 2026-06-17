@@ -417,6 +417,20 @@
       animation: spin .8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    /* "Tap to unmute" hint over the muted autoplaying showreel */
+    .hero-unmute-hint {
+      position: absolute; top: 14px; right: 14px; z-index: 8;
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(10,10,15,.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.16); color: #fff;
+      font: 600 13px/1 'Space Grotesk', sans-serif; letter-spacing: -.2px;
+      padding: 9px 14px; border-radius: 999px; cursor: pointer;
+      transition: opacity .4s ease, background .2s, transform .2s;
+      animation: hintPulse 2.4s ease-in-out infinite;
+    }
+    .hero-unmute-hint:hover { background: rgba(99,102,241,.6); }
+    .hero-unmute-hint.hidden { opacity: 0; pointer-events: none; }
+    @keyframes hintPulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 
     /* Scroll hint */
     .scroll-hint {
@@ -856,6 +870,11 @@
     ></iframe>
     <!-- Loading poster (hidden once playback starts) -->
     <div id="hero-poster" class="hero-poster"><div class="spinner"></div></div>
+    <!-- Unmute hint (shown while muted, dismissed on click/unmute) -->
+    <button id="hero-unmute-hint" class="hero-unmute-hint hidden" onclick="unmuteHero(event)" aria-label="Unmute video">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+      <span>Tap to unmute</span>
+    </button>
     <!-- Transparent click overlay for play/pause -->
     <div onclick="toggleHeroPlay()" style="position:absolute;inset:0;z-index:5;cursor:pointer;"></div>
     <!-- Play/pause flash indicator -->
@@ -912,9 +931,17 @@
     var heroPaused = false;
     var heroDuration = 0;
 
-    // Fade out the loading poster once the showreel actually starts playing
+    // Fade out the loading poster once the showreel actually starts playing,
+    // and reveal the "tap to unmute" hint (autoplay starts muted)
     var heroPoster = document.getElementById('hero-poster');
-    function hideHeroPoster() { if (heroPoster) heroPoster.classList.add('loaded'); }
+    var unmuteHint = document.getElementById('hero-unmute-hint');
+    var unmuteDismissed = false;
+    function hideHeroPoster() {
+      if (heroPoster) heroPoster.classList.add('loaded');
+      if (unmuteHint && heroMuted && !unmuteDismissed) unmuteHint.classList.remove('hidden');
+    }
+    function hideUnmuteHint() { unmuteDismissed = true; if (unmuteHint) unmuteHint.classList.add('hidden'); }
+    function unmuteHero(e) { if (e) e.stopPropagation(); if (heroMuted) toggleHeroMute(); hideUnmuteHint(); }
     heroPlayer.on('play', hideHeroPoster);
     heroPlayer.on('bufferend', hideHeroPoster);
     heroPlayer.on('timeupdate', hideHeroPoster);
@@ -1009,6 +1036,7 @@
         updateVolSlider(restoreVol);
         heroVolume = restoreVol;
         updateMuteIcon(false);
+        hideUnmuteHint();
       } else {
         heroVolume = parseInt(document.getElementById('hero-vol-slider').value) || 80;
         heroMuted = true;
