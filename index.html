@@ -865,7 +865,7 @@
   <div class="hero-reel" style="position:relative;">
     <iframe
       id="hero-iframe"
-      src="https://player.vimeo.com/video/1193576701?autoplay=1&muted=1&loop=1&background=1"
+      src="https://player.vimeo.com/video/1193576701?autoplay=1&muted=1&loop=1&background=1&quality=720p"
       allowfullscreen allow="autoplay; encrypted-media"
     ></iframe>
     <!-- Loading poster (hidden once playback starts) -->
@@ -941,6 +941,13 @@
       if (unmuteHint && heroMuted && !unmuteDismissed) unmuteHint.classList.remove('hidden');
     }
     function hideUnmuteHint() { unmuteDismissed = true; if (unmuteHint) unmuteHint.classList.add('hidden'); }
+
+    // Cap quality to cut buffering — lower on small screens
+    (function() {
+      var cap = window.matchMedia('(max-width: 768px)').matches ? '540p' : '720p';
+      heroPlayer.setQuality(cap).catch(function() {});
+      heroPlayer.on('loaded', function() { heroPlayer.setQuality(cap).catch(function() {}); });
+    })();
     function unmuteHero(e) { if (e) e.stopPropagation(); if (heroMuted) toggleHeroMute(); hideUnmuteHint(); }
     heroPlayer.on('play', hideHeroPoster);
     heroPlayer.on('bufferend', hideHeroPoster);
