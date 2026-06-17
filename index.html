@@ -402,6 +402,21 @@
       color: var(--muted); font-size: 13px; text-align: center;
     }
     .reel-ph svg { opacity: .2; }
+    /* Loading poster shown until the showreel starts playing (avoids blank box) */
+    .hero-poster {
+      position: absolute; inset: 0; z-index: 3;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 45%, rgba(99,102,241,.12), transparent 62%), #0b0b12;
+      transition: opacity .5s ease;
+    }
+    .hero-poster.loaded { opacity: 0; pointer-events: none; }
+    .hero-poster .spinner {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.14);
+      border-top-color: var(--accent);
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Scroll hint */
     .scroll-hint {
@@ -839,6 +854,8 @@
       src="https://player.vimeo.com/video/1193576701?autoplay=1&muted=1&loop=1&background=1"
       allowfullscreen allow="autoplay; encrypted-media"
     ></iframe>
+    <!-- Loading poster (hidden once playback starts) -->
+    <div id="hero-poster" class="hero-poster"><div class="spinner"></div></div>
     <!-- Transparent click overlay for play/pause -->
     <div onclick="toggleHeroPlay()" style="position:absolute;inset:0;z-index:5;cursor:pointer;"></div>
     <!-- Play/pause flash indicator -->
@@ -894,6 +911,14 @@
     var heroMuted = true;
     var heroPaused = false;
     var heroDuration = 0;
+
+    // Fade out the loading poster once the showreel actually starts playing
+    var heroPoster = document.getElementById('hero-poster');
+    function hideHeroPoster() { if (heroPoster) heroPoster.classList.add('loaded'); }
+    heroPlayer.on('play', hideHeroPoster);
+    heroPlayer.on('bufferend', hideHeroPoster);
+    heroPlayer.on('timeupdate', hideHeroPoster);
+    setTimeout(hideHeroPoster, 7000); // safety fallback
 
     function fmtTime(s) {
       s = Math.floor(s);
