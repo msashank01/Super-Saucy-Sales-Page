@@ -604,6 +604,23 @@
       display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; margin-bottom: 20px;
     }
 
+    /* Long-form paged slider (3 cards per view) */
+    .lf-slider { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .lf-viewport { flex: 1; min-width: 0; overflow: hidden; }
+    .lf-track { display: flex; gap: 20px; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+    .lf-track > .v-card { flex: 0 0 calc((100% - 40px) / 3); }
+    .lf-arrow {
+      flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(20,20,35,.75); border: 1px solid rgba(255,255,255,.25);
+      color: #fff; font-size: 24px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s, box-shadow .2s, transform .2s;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .lf-arrow:hover { background: rgba(99,102,241,.5); border-color: rgba(99,102,241,.7); box-shadow: 0 0 20px rgba(99,102,241,.4); transform: scale(1.08); }
+    @media (max-width: 900px) { .lf-track > .v-card { flex: 0 0 calc((100% - 20px) / 2); } }
+    @media (max-width: 560px) { .lf-track > .v-card { flex: 0 0 100%; } .lf-arrow { width: 40px; height: 40px; font-size: 20px; } }
+
     /* Video card */
     .v-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
@@ -638,6 +655,7 @@
       #v-lb-click-overlay { pointer-events: none !important; }
     }
     .thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .thumb-ph {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
@@ -1532,7 +1550,10 @@
     </div>
 
     <div class="grid-glass">
-    <div class="lf-grid">
+    <div class="lf-slider">
+      <button class="lf-arrow" onclick="lfSlide(-1)" aria-label="Previous">&#8249;</button>
+      <div class="lf-viewport">
+      <div class="lf-track" id="lf-track">
 
       <div class="v-card">
         <div class="thumb land">
@@ -1564,6 +1585,29 @@
         </div>
       </div>
 
+      <div class="v-card">
+        <div class="thumb land">
+          <video src="Patrice%20Moore%20-%208%20ways%20to%20generate%20%241000%2B%20sales%20Value%20First.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Patrice Moore</span>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb land">
+          <video src="Re-edit%20Intro%20-Tim%20Peakman%20%281%29.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Tim Peakman</span>
+        </div>
+      </div>
+
+      <!-- Elizavecca card pending: source file is 421MB — needs compression before it can be added -->
+
+      </div>
+      </div>
+      <button class="lf-arrow" onclick="lfSlide(1)" aria-label="Next">&#8250;</button>
     </div>
     </div>
 
@@ -1894,6 +1938,8 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     <button id="v-lb-close" onclick="closeLightbox()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:rgba(255,255,255,.85);font-size:32px;cursor:pointer;line-height:1;transition:opacity .3s;opacity:0;pointer-events:none;">✕</button>
     <div id="v-lb-aspect" style="position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.7);">
       <iframe id="v-lightbox-frame" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allowfullscreen allow="autoplay; encrypted-media; fullscreen"></iframe>
+      <!-- Local video player (used for non-Vimeo card sources) -->
+      <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:contain;display:none;z-index:4;"></video>
       <!-- Transparent click overlay for play/pause inside lightbox -->
       <div id="v-lb-click-overlay" onclick="toggleLbPlay()" style="position:absolute;inset:0;z-index:2;cursor:pointer;"></div>
       <!-- Play/pause flash indicator -->
@@ -1942,12 +1988,14 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     }
   };
 
-  // Collect all thumb iframes and add click overlays
+  // Collect all thumb media (Vimeo iframes + local videos) and add click overlays
   document.querySelectorAll('.thumb').forEach(function(thumb) {
     var iframe = thumb.querySelector('iframe');
-    if (!iframe) return;
+    var video  = thumb.querySelector('video');
+    var media  = iframe || video;
+    if (!media) return;
     var idx = lbSrcs.length;
-    lbSrcs.push(iframe.src);
+    lbSrcs.push({ type: iframe ? 'vimeo' : 'video', src: media.getAttribute('src') });
     lbPort.push(thumb.classList.contains('port'));
     var overlay = document.createElement('div');
     overlay.style.cssText = 'position:absolute;inset:0;z-index:3;cursor:pointer;display:flex;align-items:center;justify-content:center;';
@@ -1992,18 +2040,45 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     document.getElementById('v-lightbox').classList.toggle('lb-port', !!lbPort[lbIdx]);
   }
 
+  // Load whichever source is at lbIdx — Vimeo iframe or local <video>
+  function loadLbCurrent() {
+    var item    = lbSrcs[lbIdx];
+    var frame   = document.getElementById('v-lightbox-frame');
+    var vid     = document.getElementById('v-lightbox-video');
+    var overlay = document.getElementById('v-lb-click-overlay');
+    var flash   = document.getElementById('lb-flash');
+    if (item.type === 'video') {
+      lbPlayer = null; lbPaused = false;
+      frame.src = ''; frame.style.display = 'none';
+      if (overlay) overlay.style.display = 'none';
+      if (flash) flash.style.display = 'none';
+      vid.style.display = 'block';
+      vid.src = item.src.split('#')[0];
+      vid.currentTime = 0;
+      vid.play().catch(function(){});
+    } else {
+      vid.pause(); vid.removeAttribute('src'); vid.style.display = 'none';
+      if (overlay) overlay.style.display = '';
+      if (flash) flash.style.display = '';
+      frame.style.display = '';
+      frame.src = buildLbSrc(item.src);
+      setTimeout(initLbPlayer, 500);
+    }
+  }
+
   window.openLightbox = function(idx) {
     lbIdx = idx;
     applyLbOrientation();
-    document.getElementById('v-lightbox-frame').src = buildLbSrc(lbSrcs[lbIdx]);
+    loadLbCurrent();
     document.getElementById('v-lightbox').style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    setTimeout(initLbPlayer, 500);
   };
 
   window.closeLightbox = function() {
     lbPlayer = null; lbPaused = false;
     document.getElementById('v-lightbox-frame').src = '';
+    var vid = document.getElementById('v-lightbox-video');
+    if (vid) { vid.pause(); vid.removeAttribute('src'); }
     var lb = document.getElementById('v-lightbox');
     lb.style.display = 'none';
     lb.classList.remove('cursor-hidden');
@@ -2014,8 +2089,7 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     lbIdx = (lbIdx + dir + lbSrcs.length) % lbSrcs.length;
     lbPlayer = null; lbPaused = false;
     applyLbOrientation();
-    document.getElementById('v-lightbox-frame').src = buildLbSrc(lbSrcs[lbIdx]);
-    setTimeout(initLbPlayer, 500);
+    loadLbCurrent();
   };
 
   document.addEventListener('keydown', function(e) {
@@ -2045,6 +2119,41 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   lbEl.addEventListener('mousemove', showControls);
   // Touch devices: reveal controls on tap, then fade out (same as play/pause)
   lbEl.addEventListener('touchstart', showControls, { passive: true });
+})();
+</script>
+
+<script>
+// ── LONG-FORM PAGED SLIDER (3 per view, responsive) ──
+(function(){
+  var GAP = 20; // matches .lf-track gap
+  var lfPage = 0;
+  var track = document.getElementById('lf-track');
+  if (!track) return;
+
+  function metrics() {
+    var card = track.children[0];
+    if (!card) return { per: 1, pages: 1, step: 0 };
+    var cardW = card.getBoundingClientRect().width;
+    var viewW = track.parentElement.clientWidth;
+    var per = Math.max(1, Math.round((viewW + GAP) / (cardW + GAP)));
+    var pages = Math.max(1, Math.ceil(track.children.length / per));
+    return { per: per, pages: pages, step: (cardW + GAP) * per };
+  }
+
+  function render() {
+    var m = metrics();
+    if (lfPage > m.pages - 1) lfPage = 0;
+    track.style.transform = 'translateX(' + (-lfPage * m.step) + 'px)';
+  }
+
+  window.lfSlide = function(dir) {
+    var m = metrics();
+    lfPage = (lfPage + dir + m.pages) % m.pages;
+    render();
+  };
+
+  window.addEventListener('resize', render);
+  render();
 })();
 </script>
 </body>
