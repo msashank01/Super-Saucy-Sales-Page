@@ -624,9 +624,10 @@
 
     /* Nav buttons centered below the long-form row */
     .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 30px; }
-    /* Long-form media: round all corners via clip-path so the hover scale
-       can't square-clip the video/iframe */
+    /* Long-form media: round all corners via clip-path */
     .lf-track .thumb video, .lf-track .thumb iframe { clip-path: inset(0 round 10px); }
+    /* No hover pop/scale on long-form cards — keep the glow only */
+    .lf-track .v-card:hover { transform: none; }
 
     /* Video card */
     .v-card {
