@@ -628,9 +628,12 @@
     .v-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
       overflow: hidden;
+      /* translateZ(0) promotes to its own layer so the rounded clip is kept
+         during the hover scale (otherwise video/iframe corners get chopped) */
+      transform: translateZ(0);
       transition: border-color .2s, transform .2s;
     }
-    .v-card:hover { border-color: rgba(99,102,241,.45); transform: scale(1.03); box-shadow: 0 0 30px rgba(99,102,241,.2), 0 0 60px rgba(99,102,241,.08), 0 12px 40px rgba(0,0,0,.5); }
+    .v-card:hover { border-color: rgba(99,102,241,.45); transform: translateZ(0) scale(1.03); box-shadow: 0 0 30px rgba(99,102,241,.2), 0 0 60px rgba(99,102,241,.08), 0 12px 40px rgba(0,0,0,.5); }
 
     .thumb { position: relative; overflow: hidden; background: #0f0f16; }
     .thumb.land { aspect-ratio: 16/9; }
