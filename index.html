@@ -623,11 +623,11 @@
 
     /* Nav buttons centered below the long-form row */
     .lf-nav { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
-    /* Inset the video inside a padded card frame so its corners never touch
-       the card's rounded edge (avoids the hover-scale corner chop) */
-    .lf-track .v-card { padding: 6px; }
-    .lf-track .thumb { border-radius: 7px; }
-    .lf-track .thumb video, .lf-track .thumb iframe { border-radius: 7px; }
+    /* Long-form cards: just the video — no border/stroke/frame.
+       Rounded corners live on the media itself so they don't chop on hover. */
+    .lf-track .v-card { border: 0; background: transparent; }
+    .lf-track .thumb { border-radius: 10px; }
+    .lf-track .thumb video, .lf-track .thumb iframe { border-radius: 10px; }
 
     /* Video card */
     .v-card {
