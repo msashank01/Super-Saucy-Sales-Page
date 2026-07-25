@@ -621,6 +621,11 @@
     @media (max-width: 900px) { .lf-track > .v-card { flex: 0 0 calc((100% - 20px) / 2); } }
     @media (max-width: 560px) { .lf-track > .v-card { flex: 0 0 100%; } .lf-arrow { width: 40px; height: 40px; font-size: 20px; } }
 
+    /* Long-form thumbnail wall (packed montage grid) */
+    .lf-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    @media (max-width: 900px) { .lf-wall { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .lf-wall { grid-template-columns: 1fr; } }
+
     /* Video card */
     .v-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
@@ -1550,18 +1555,11 @@
     </div>
 
     <div class="grid-glass">
-    <div class="lf-slider">
-      <button class="lf-arrow" onclick="lfSlide(-1)" aria-label="Previous">&#8249;</button>
-      <div class="lf-viewport">
-      <div class="lf-track" id="lf-track">
+    <div class="lf-wall">
 
       <div class="v-card">
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194113617?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
-        </div>
-        <div class="v-meta">
-          <img src="the sauna heater.jpg" alt="The Sauna Heater" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-          <span class="v-client">The Sauna Heater</span>
         </div>
       </div>
 
@@ -1569,19 +1567,11 @@
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194113339?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
         </div>
-        <div class="v-meta">
-          <img src="the sauna heater.jpg" alt="The Sauna Heater" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-          <span class="v-client">The Sauna Heater</span>
-        </div>
       </div>
 
       <div class="v-card">
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194114277?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
-        </div>
-        <div class="v-meta">
-          <img src="next curiosity.jpg" alt="Next Curiosity" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">
-          <span class="v-client">Next Curiosity</span>
         </div>
       </div>
 
@@ -1589,17 +1579,11 @@
         <div class="thumb land">
           <video src="Patrice%20Moore%20-%208%20ways%20to%20generate%20%241000%2B%20sales%20Value%20First.mp4#t=0.1" muted playsinline preload="metadata"></video>
         </div>
-        <div class="v-meta">
-          <span class="v-client">Patrice Moore</span>
-        </div>
       </div>
 
       <div class="v-card">
         <div class="thumb land">
           <video src="Re-edit%20Intro%20-Tim%20Peakman%20%281%29.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Tim Peakman</span>
         </div>
       </div>
 
@@ -1607,14 +1591,8 @@
         <div class="thumb land">
           <video src="Elizavecca%20Bubble%20Clay%20Mask%20Product%20Test%20-%20MOHAN%20%281%29%20%281%29.mp4#t=0.1" muted playsinline preload="metadata"></video>
         </div>
-        <div class="v-meta">
-          <span class="v-client">Elizavecca</span>
-        </div>
       </div>
 
-      </div>
-      </div>
-      <button class="lf-arrow" onclick="lfSlide(1)" aria-label="Next">&#8250;</button>
     </div>
     </div>
 
