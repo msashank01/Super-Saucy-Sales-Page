@@ -2130,43 +2130,54 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
 </script>
 
 <script>
-// ── LONG-FORM PAGED SLIDER (3 per view, responsive) ──
+// ── LONG-FORM CONTINUOUS CAROUSEL (recycles cards, loops forever) ──
 (function(){
   var GAP = 20; // matches .lf-track gap
-  var lfIndex = 0; // leftmost visible card
+  var EASE = 'transform .5s cubic-bezier(.22,1,.36,1)';
   var track = document.getElementById('lf-track');
   if (!track) return;
+  var animating = false;
 
-  var prevBtn = document.querySelector('.lf-nav .lf-arrow:first-child');
-  var nextBtn = document.querySelector('.lf-nav .lf-arrow:last-child');
-
-  function metrics() {
-    var card = track.children[0];
-    if (!card) return { step: 0, max: 0 };
-    var cardW = card.getBoundingClientRect().width;
-    var viewW = track.parentElement.clientWidth;
-    var per = Math.max(1, Math.round((viewW + GAP) / (cardW + GAP)));
-    var max = Math.max(0, track.children.length - per); // last valid leftmost index
-    return { step: cardW + GAP, max: max };
+  function step() {
+    var card = track.firstElementChild;
+    return card ? card.getBoundingClientRect().width + GAP : 0;
   }
 
-  var STEP = 2; // videos to advance per press
-
-  function render() {
-    var m = metrics();
-    if (lfIndex > m.max) lfIndex = m.max;
-    if (lfIndex < 0) lfIndex = 0;
-    track.style.transform = 'translateX(' + (-lfIndex * m.step) + 'px)';
+  // Next: slide left one card, then move the first card to the end (seamless loop)
+  function next() {
+    if (animating || track.children.length < 2) return;
+    animating = true;
+    track.style.transition = EASE;
+    track.style.transform = 'translateX(' + (-step()) + 'px)';
+    var onEnd = function() {
+      track.removeEventListener('transitionend', onEnd);
+      track.style.transition = 'none';
+      track.appendChild(track.firstElementChild);
+      track.style.transform = 'translateX(0)';
+      void track.offsetWidth; // flush before re-enabling animation
+      animating = false;
+    };
+    track.addEventListener('transitionend', onEnd);
   }
 
-  window.lfSlide = function(dir) {
-    var m = metrics();
-    lfIndex = Math.min(Math.max(lfIndex + dir * STEP, 0), m.max); // clamp, never wraps backward
-    render();
-  };
+  // Prev: put the last card first (off-screen left), then slide back to 0
+  function prev() {
+    if (animating || track.children.length < 2) return;
+    animating = true;
+    track.style.transition = 'none';
+    track.insertBefore(track.lastElementChild, track.firstElementChild);
+    track.style.transform = 'translateX(' + (-step()) + 'px)';
+    void track.offsetWidth;
+    track.style.transition = EASE;
+    track.style.transform = 'translateX(0)';
+    var onEnd = function() {
+      track.removeEventListener('transitionend', onEnd);
+      animating = false;
+    };
+    track.addEventListener('transitionend', onEnd);
+  }
 
-  window.addEventListener('resize', render);
-  render();
+  window.lfSlide = function(dir) { dir > 0 ? next() : prev(); };
 })();
 </script>
 </body>
