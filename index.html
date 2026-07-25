@@ -633,11 +633,10 @@
       clip-path: inset(0 round 10px);
     }
     /* No scale transform on hover — a transform is what breaks the rounded
-       clip on video/iframe. Use a glow + slight brighten for feedback instead. */
+       clip on video/iframe. Use a soft indigo glow behind the video instead. */
     .lf-track .v-card:hover {
       transform: none;
-      filter: brightness(1.05);
-      box-shadow: 0 0 40px rgba(99,102,241,.35), 0 0 90px rgba(99,102,241,.18), 0 12px 40px rgba(0,0,0,.5);
+      box-shadow: 0 0 34px rgba(99,102,241,.55), 0 0 80px rgba(99,102,241,.32);
     }
 
     /* Video card */
