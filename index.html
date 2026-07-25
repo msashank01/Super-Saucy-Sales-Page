@@ -1926,9 +1926,9 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   <div id="v-lb-box" style="position:relative;width:75vw;max-width:1100px;">
     <button id="v-lb-close" onclick="closeLightbox()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:rgba(255,255,255,.85);font-size:32px;cursor:pointer;line-height:1;transition:opacity .3s;opacity:0;pointer-events:none;">✕</button>
     <div id="v-lb-aspect" style="position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.7);">
-      <iframe id="v-lightbox-frame" style="position:absolute;inset:0;width:100%;height:100%;border:0;" allowfullscreen allow="autoplay; encrypted-media; fullscreen"></iframe>
+      <iframe id="v-lightbox-frame" style="position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:inherit;" allowfullscreen allow="autoplay; encrypted-media; fullscreen"></iframe>
       <!-- Local video player (used for non-Vimeo card sources) -->
-      <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:contain;display:none;z-index:4;"></video>
+      <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:contain;border-radius:inherit;display:none;z-index:4;"></video>
       <!-- Transparent click overlay for play/pause inside lightbox -->
       <div id="v-lb-click-overlay" onclick="toggleLbPlay()" style="position:absolute;inset:0;z-index:2;cursor:pointer;"></div>
       <!-- Play/pause flash indicator -->
