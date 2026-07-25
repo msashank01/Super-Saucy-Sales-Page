@@ -1933,10 +1933,10 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   <button id="v-lb-next" onclick="lbNav(1)" onmouseover="this.style.background='rgba(99,102,241,.5)';this.style.borderColor='rgba(99,102,241,.7)';this.style.boxShadow='0 0 20px rgba(99,102,241,.4)';this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.background='rgba(20,20,35,.75)';this.style.borderColor='rgba(255,255,255,.3)';this.style.boxShadow='0 4px 24px rgba(0,0,0,.5)';this.style.transform='translateY(-50%) scale(1)'" style="position:fixed;right:28px;top:50%;transform:translateY(-50%);background:rgba(20,20,35,.75);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:28px;width:56px;height:56px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .3s,background .2s,box-shadow .2s,transform .2s;opacity:0;pointer-events:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,.5);">&#8250;</button>
   <div id="v-lb-box" style="position:relative;width:75vw;max-width:1100px;">
     <button id="v-lb-close" onclick="closeLightbox()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:rgba(255,255,255,.85);font-size:32px;cursor:pointer;line-height:1;transition:opacity .3s;opacity:0;pointer-events:none;">✕</button>
-    <div id="v-lb-aspect" style="position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#0a0a0f;box-shadow:0 24px 80px rgba(0,0,0,.7);">
-      <iframe id="v-lightbox-frame" style="position:absolute;inset:6px;border:0;border-radius:9px;" allowfullscreen allow="autoplay; encrypted-media; fullscreen"></iframe>
+    <div id="v-lb-aspect" style="position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.7);">
+      <iframe id="v-lightbox-frame" style="position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;" allowfullscreen allow="autoplay; encrypted-media; fullscreen"></iframe>
       <!-- Local video player (used for non-Vimeo card sources) -->
-      <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:6px;background:#000;object-fit:contain;border-radius:9px;display:none;z-index:4;"></video>
+      <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:cover;border-radius:14px;display:none;z-index:4;"></video>
       <!-- Transparent click overlay for play/pause inside lightbox -->
       <div id="v-lb-click-overlay" onclick="toggleLbPlay()" style="position:absolute;inset:0;z-index:2;cursor:pointer;"></div>
       <!-- Play/pause flash indicator -->
