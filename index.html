@@ -624,9 +624,9 @@
 
     /* Nav buttons centered below the long-form row */
     .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 30px; }
-    /* Long-form media: round only the TOP corners (bottom meets the meta bar),
-       via clip-path so the hover scale can't square-clip the video/iframe */
-    .lf-track .thumb video, .lf-track .thumb iframe { clip-path: inset(0 round 10px 10px 0 0); }
+    /* Long-form media: round all corners via clip-path so the hover scale
+       can't square-clip the video/iframe */
+    .lf-track .thumb video, .lf-track .thumb iframe { clip-path: inset(0 round 10px); }
 
     /* Video card */
     .v-card {
@@ -1564,19 +1564,11 @@
         <div class="thumb land">
           <video src="Patrice%20Moore%20-%208%20ways%20to%20generate%20%241000%2B%20sales%20Value%20First.mp4#t=0.1" muted playsinline preload="metadata"></video>
         </div>
-        <div class="v-meta">
-          <span class="v-client">Patrice Moore</span>
-          <span class="v-views">&mdash;</span>
-        </div>
       </div>
 
       <div class="v-card">
         <div class="thumb land">
           <video src="Re-edit%20Intro%20-Tim%20Peakman%20%281%29.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Tim Peakman</span>
-          <span class="v-views">&mdash;</span>
         </div>
       </div>
 
@@ -1584,19 +1576,11 @@
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194113339?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
         </div>
-        <div class="v-meta">
-          <span class="v-client">The Sauna Heater</span>
-          <span class="v-views">&mdash;</span>
-        </div>
       </div>
 
       <div class="v-card">
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194113617?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">The Sauna Heater</span>
-          <span class="v-views">&mdash;</span>
         </div>
       </div>
 
@@ -1604,19 +1588,11 @@
         <div class="thumb land">
           <video src="Elizavecca%20Bubble%20Clay%20Mask%20Product%20Test%20-%20MOHAN%20%281%29%20%281%29.mp4#t=0.1" muted playsinline preload="metadata"></video>
         </div>
-        <div class="v-meta">
-          <span class="v-client">Elizavecca</span>
-          <span class="v-views">&mdash;</span>
-        </div>
       </div>
 
       <div class="v-card">
         <div class="thumb land">
           <iframe src="https://player.vimeo.com/video/1194114277?title=0&byline=0&portrait=0&badge=0&controls=0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Next Curiosity</span>
-          <span class="v-views">&mdash;</span>
         </div>
       </div>
 
