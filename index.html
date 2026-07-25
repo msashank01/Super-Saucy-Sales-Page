@@ -624,21 +624,16 @@
     /* Nav buttons centered below the long-form row */
     .lf-nav { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
     /* Long-form cards: just the video — no border/stroke/frame.
-       Rounded corners live on the media itself so they don't chop on hover. */
-    .lf-track .v-card { border: 0; background: transparent; }
-    .lf-track .thumb { border-radius: 10px; }
+       No ancestor clipping (overflow:visible) so the hover-scale can't
+       square-clip the media; the rounded corners live on the media itself. */
+    .lf-track .v-card { border: 0; background: transparent; overflow: visible; }
+    .lf-track .thumb { overflow: visible; border-radius: 10px; }
     .lf-track .thumb video, .lf-track .thumb iframe { border-radius: 10px; }
 
     /* Video card */
     .v-card {
       background: var(--card); border: 1px solid var(--border); border-radius: 10px;
       overflow: hidden;
-      /* mask hack forces the rounded clip onto iframe/video children even
-         during the hover scale (otherwise their corners get chopped) */
-      -webkit-mask-image: -webkit-radial-gradient(#fff, #000);
-      -webkit-mask-image: linear-gradient(#fff, #fff);
-      mask-image: linear-gradient(#fff, #fff);
-      transform: translateZ(0);
       transition: border-color .2s, transform .2s;
     }
     .v-card:hover { border-color: rgba(99,102,241,.45); transform: translateZ(0) scale(1.03); box-shadow: 0 0 30px rgba(99,102,241,.2), 0 0 60px rgba(99,102,241,.08), 0 12px 40px rgba(0,0,0,.5); }
