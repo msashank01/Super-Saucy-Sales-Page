@@ -621,8 +621,21 @@
     @media (max-width: 900px) { .lf-track > .v-card { flex: 0 0 calc((100% - 20px) / 2); } }
     @media (max-width: 560px) { .lf-track > .v-card { flex: 0 0 100%; } .lf-arrow { width: 40px; height: 40px; font-size: 20px; } }
 
-    /* Long-form thumbnail wall (packed montage grid) */
-    .lf-wall { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+    /* Long-form thumbnail wall — full-bleed packed montage */
+    .lf-wall-wrap {
+      position: relative;
+      width: 100vw; margin-left: calc(50% - 50vw);
+      margin-bottom: 20px; overflow: hidden;
+    }
+    .lf-wall { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+    .lf-wall .v-card { border: 0; border-radius: 0; background: #000; }
+    .lf-wall .v-card:hover { transform: none; box-shadow: none; border-color: transparent; }
+    /* Dark vignette fading in from both sides */
+    .lf-wall-wrap::before, .lf-wall-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 14vw; z-index: 4; pointer-events: none;
+    }
+    .lf-wall-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg) 0%, rgba(10,10,15,0) 100%); }
+    .lf-wall-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg) 0%, rgba(10,10,15,0) 100%); }
     @media (max-width: 560px) { .lf-wall { grid-template-columns: 1fr; } }
 
     /* Video card */
@@ -1553,7 +1566,7 @@
       <div class="sub-divider-line"></div>
     </div>
 
-    <div class="grid-glass">
+    <div class="lf-wall-wrap">
     <div class="lf-wall">
 
       <div class="v-card">
