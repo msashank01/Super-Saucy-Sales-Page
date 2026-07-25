@@ -2150,19 +2150,18 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     return { step: cardW + GAP, max: max };
   }
 
+  var STEP = 2; // videos to advance per press
+
   function render() {
     var m = metrics();
     if (lfIndex > m.max) lfIndex = m.max;
     if (lfIndex < 0) lfIndex = 0;
     track.style.transform = 'translateX(' + (-lfIndex * m.step) + 'px)';
-    // Dim/disable arrows at the ends (no wrap-around)
-    if (prevBtn) prevBtn.classList.toggle('lf-arrow--off', lfIndex <= 0);
-    if (nextBtn) nextBtn.classList.toggle('lf-arrow--off', lfIndex >= m.max);
   }
 
   window.lfSlide = function(dir) {
     var m = metrics();
-    lfIndex = Math.min(Math.max(lfIndex + dir, 0), m.max); // one card per press, clamped
+    lfIndex = Math.min(Math.max(lfIndex + dir * STEP, 0), m.max); // clamp, never wraps backward
     render();
   };
 
