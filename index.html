@@ -2133,35 +2133,36 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
 // ── LONG-FORM PAGED SLIDER (3 per view, responsive) ──
 (function(){
   var GAP = 20; // matches .lf-track gap
-  var lfPage = 0;
+  var lfIndex = 0; // leftmost visible card
   var track = document.getElementById('lf-track');
   if (!track) return;
-
-  function metrics() {
-    var card = track.children[0];
-    if (!card) return { per: 1, pages: 1, step: 0 };
-    var cardW = card.getBoundingClientRect().width;
-    var viewW = track.parentElement.clientWidth;
-    var per = Math.max(1, Math.round((viewW + GAP) / (cardW + GAP)));
-    var pages = Math.max(1, Math.ceil(track.children.length / per));
-    return { per: per, pages: pages, step: (cardW + GAP) * per };
-  }
 
   var prevBtn = document.querySelector('.lf-nav .lf-arrow:first-child');
   var nextBtn = document.querySelector('.lf-nav .lf-arrow:last-child');
 
+  function metrics() {
+    var card = track.children[0];
+    if (!card) return { step: 0, max: 0 };
+    var cardW = card.getBoundingClientRect().width;
+    var viewW = track.parentElement.clientWidth;
+    var per = Math.max(1, Math.round((viewW + GAP) / (cardW + GAP)));
+    var max = Math.max(0, track.children.length - per); // last valid leftmost index
+    return { step: cardW + GAP, max: max };
+  }
+
   function render() {
     var m = metrics();
-    if (lfPage > m.pages - 1) lfPage = m.pages - 1;
-    track.style.transform = 'translateX(' + (-lfPage * m.step) + 'px)';
+    if (lfIndex > m.max) lfIndex = m.max;
+    if (lfIndex < 0) lfIndex = 0;
+    track.style.transform = 'translateX(' + (-lfIndex * m.step) + 'px)';
     // Dim/disable arrows at the ends (no wrap-around)
-    if (prevBtn) prevBtn.classList.toggle('lf-arrow--off', lfPage <= 0);
-    if (nextBtn) nextBtn.classList.toggle('lf-arrow--off', lfPage >= m.pages - 1);
+    if (prevBtn) prevBtn.classList.toggle('lf-arrow--off', lfIndex <= 0);
+    if (nextBtn) nextBtn.classList.toggle('lf-arrow--off', lfIndex >= m.max);
   }
 
   window.lfSlide = function(dir) {
     var m = metrics();
-    lfPage = Math.min(Math.max(lfPage + dir, 0), m.pages - 1); // clamp, no wrap
+    lfIndex = Math.min(Math.max(lfIndex + dir, 0), m.max); // one card per press, clamped
     render();
   };
 
