@@ -92,9 +92,9 @@
 
     /* ── FULLSCREEN HERO ── */
     .hero-reel:-webkit-full-screen { width: 100vw; height: 100vh; }
-    .hero-reel:-webkit-full-screen iframe { width: 100%; height: 100%; }
+    .hero-reel:-webkit-full-screen iframe, .hero-reel:-webkit-full-screen video { width: 100%; height: 100%; }
     .hero-reel:fullscreen { width: 100vw; height: 100vh; }
-    .hero-reel:fullscreen iframe { width: 100%; height: 100%; }
+    .hero-reel:fullscreen iframe, .hero-reel:fullscreen video { width: 100%; height: 100%; }
 
     /* ── PLAY/PAUSE FLASH ── */
     @keyframes playFlash {
@@ -394,7 +394,7 @@
       border: 1px solid var(--border); overflow: hidden;
       background: var(--card); position: relative;
     }
-    .hero-reel iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .hero-reel iframe, .hero-reel video { width: 100%; height: 100%; border: 0; display: block; object-fit: cover; }
     .reel-ph {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
@@ -863,11 +863,11 @@
   </div>
 
   <div class="hero-reel" style="position:relative;">
-    <iframe
-      id="hero-iframe"
-      src="https://player.vimeo.com/video/1193576701?autoplay=1&muted=1&loop=1&background=1"
-      allowfullscreen allow="autoplay; encrypted-media"
-    ></iframe>
+    <video
+      id="hero-video"
+      src="EllIOT%20PHILLIPS%20-%20RE%20EDIT%20INTRO.mp4"
+      autoplay muted loop playsinline preload="auto"
+    ></video>
     <!-- Loading poster (hidden once playback starts) -->
     <div id="hero-poster" class="hero-poster"><div class="spinner"></div></div>
     <!-- Unmute hint (shown while muted, dismissed on click/unmute) -->
@@ -926,7 +926,7 @@
     </div>
   </div>
   <script>
-    var heroPlayer = new Vimeo.Player(document.getElementById('hero-iframe'));
+    var heroVideo = document.getElementById('hero-video');
     var heroMuted = true;
     var heroPaused = false;
     var heroDuration = 0;
@@ -942,24 +942,27 @@
     }
     function hideUnmuteHint() { unmuteDismissed = true; if (unmuteHint) unmuteHint.classList.add('hidden'); }
     function unmuteHero(e) { if (e) e.stopPropagation(); if (heroMuted) toggleHeroMute(); hideUnmuteHint(); }
-    heroPlayer.on('play', hideHeroPoster);
-    heroPlayer.on('bufferend', hideHeroPoster);
-    heroPlayer.on('timeupdate', hideHeroPoster);
+    heroVideo.addEventListener('playing', hideHeroPoster);
+    heroVideo.addEventListener('timeupdate', hideHeroPoster);
     setTimeout(hideHeroPoster, 7000); // safety fallback
 
     function fmtTime(s) {
-      s = Math.floor(s);
+      s = Math.floor(s) || 0;
       return Math.floor(s/60) + ':' + (s%60 < 10 ? '0' : '') + (s%60);
     }
 
-    heroPlayer.getDuration().then(function(d) {
-      heroDuration = d;
-      document.getElementById('hero-duration').textContent = fmtTime(d);
-    });
+    function setHeroDuration() {
+      if (isFinite(heroVideo.duration)) {
+        heroDuration = heroVideo.duration;
+        document.getElementById('hero-duration').textContent = fmtTime(heroDuration);
+      }
+    }
+    heroVideo.addEventListener('loadedmetadata', setHeroDuration);
+    setHeroDuration();
 
-    heroPlayer.on('timeupdate', function(data) {
-      document.getElementById('hero-current').textContent = fmtTime(data.seconds);
-      var pct = heroDuration ? (data.seconds / heroDuration * 100) : 0;
+    heroVideo.addEventListener('timeupdate', function() {
+      document.getElementById('hero-current').textContent = fmtTime(heroVideo.currentTime);
+      var pct = heroDuration ? (heroVideo.currentTime / heroDuration * 100) : 0;
       document.getElementById('hero-progress-fill').style.width = pct + '%';
     });
 
@@ -967,7 +970,7 @@
       var track = document.getElementById('hero-progress-track');
       var rect = track.getBoundingClientRect();
       var pct = (e.clientX - rect.left) / rect.width;
-      heroPlayer.setCurrentTime(pct * heroDuration);
+      heroVideo.currentTime = pct * heroDuration;
     }
 
     var flashGrad = '<defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c7d2fe"/></linearGradient></defs>';
@@ -983,20 +986,24 @@
       el.classList.add('flash-active');
     }
 
+    function setHeroPlayIcon(paused) {
+      document.getElementById('hero-play-icon').outerHTML = paused
+        ? '<svg id="hero-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+        : '<svg id="hero-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+    }
+
     function toggleHeroPlay() {
-      if (heroPaused) {
-        // currently paused → play → button shows ⏸
-        heroPlayer.play();
-        document.getElementById('hero-play-icon').outerHTML = '<svg id="hero-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+      if (heroVideo.paused) {
+        heroVideo.play();
         showHeroFlash(false);
       } else {
-        // currently playing → pause → button shows ▶
-        heroPlayer.pause();
-        document.getElementById('hero-play-icon').outerHTML = '<svg id="hero-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        heroVideo.pause();
         showHeroFlash(true);
       }
-      heroPaused = !heroPaused;
     }
+    // Keep icon/state in sync however playback is toggled
+    heroVideo.addEventListener('play', function() { heroPaused = false; setHeroPlayIcon(false); });
+    heroVideo.addEventListener('pause', function() { heroPaused = true; setHeroPlayIcon(true); });
 
     var heroVolume = 0; // tracks last non-zero volume (0–100)
 
@@ -1015,7 +1022,8 @@
 
     function setHeroVolume(val) {
       val = parseInt(val);
-      heroPlayer.setVolume(val / 100);
+      heroVideo.volume = val / 100;
+      heroVideo.muted = (val === 0);
       updateVolSlider(val);
       if (val === 0) {
         heroMuted = true;
@@ -1032,7 +1040,8 @@
         // Unmute — restore last volume (default 80 if never set)
         var restoreVol = heroVolume > 0 ? heroVolume : 80;
         heroMuted = false;
-        heroPlayer.setVolume(restoreVol / 100);
+        heroVideo.muted = false;
+        heroVideo.volume = restoreVol / 100;
         updateVolSlider(restoreVol);
         heroVolume = restoreVol;
         updateMuteIcon(false);
@@ -1040,7 +1049,7 @@
       } else {
         heroVolume = parseInt(document.getElementById('hero-vol-slider').value) || 80;
         heroMuted = true;
-        heroPlayer.setVolume(0);
+        heroVideo.muted = true;
         updateVolSlider(0);
         updateMuteIcon(true);
       }
@@ -1078,12 +1087,12 @@
       }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
-        heroPlayer.getCurrentTime().then(function(t) { heroPlayer.setCurrentTime(Math.min(t + 5, heroDuration)); });
+        heroVideo.currentTime = Math.min(heroVideo.currentTime + 5, heroDuration);
         showHeroControls();
       }
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        heroPlayer.getCurrentTime().then(function(t) { heroPlayer.setCurrentTime(Math.max(t - 5, 0)); });
+        heroVideo.currentTime = Math.max(heroVideo.currentTime - 5, 0);
         showHeroControls();
       }
     });
