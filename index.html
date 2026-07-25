@@ -1496,15 +1496,18 @@
           animateDigits('stat-num-' + statIdx, statTargets[statIdx]);
         }
 
-        // Trigger on scroll into view
+        // Re-run the count-up every time the section scrolls back into view
         (function() {
           var track = document.getElementById('stat-track');
           if (!track) return;
-          var triggered = false;
+          var inView = false;
           var obs = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting && !triggered) {
-              triggered = true;
-              animateDigits('stat-num-0', statTargets[0]);
+            var visible = entries[0].isIntersecting;
+            if (visible && !inView) {
+              inView = true;
+              animateDigits('stat-num-' + statIdx, statTargets[statIdx]);
+            } else if (!visible) {
+              inView = false; // reset so it animates again on the next entry
             }
           }, { threshold: 0.3 });
           obs.observe(track);
