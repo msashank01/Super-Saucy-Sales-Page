@@ -55,6 +55,9 @@
       opacity: 0; transition: opacity .3s ease; will-change: transform; mix-blend-mode: screen;
     }
     @media (hover: none), (max-width: 768px) { #bg-grid, #mouse-glow, #mouse-tip { display: none !important; } }
+    /* Fit (not crop/zoom) the local video when it goes fullscreen */
+    #v-lightbox-video:fullscreen { object-fit: contain !important; }
+    #v-lightbox-video:-webkit-full-screen { object-fit: contain !important; }
     .bg-orbs span {
       position: absolute; border-radius: 50%; filter: blur(110px);
     }
