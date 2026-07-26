@@ -305,6 +305,14 @@
     .t-btn:hover::after,
     .lf-arrow:hover::after,
     .f-social a:hover::after { animation: btn-shine .7s ease; }
+    /* Shine sweep on the video play buttons when hovering a card */
+    .thumb-play::after {
+      content: ''; position: absolute; top: 0; left: -85%;
+      width: 55%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.5) 50%, transparent 100%);
+      transform: skewX(-20deg); pointer-events: none;
+    }
+    .thumb:hover .thumb-play::after { animation: btn-shine .7s ease; }
     .btn:active { transform: translateY(0); }
     .btn-lg {
       font-size: 15px; padding: 13px 30px; border-radius: 7px;
@@ -2163,8 +2171,10 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
 
     // Play button
     var btn = document.createElement('div');
+    btn.className = 'thumb-play';
     btn.style.cssText = [
       'width:56px;height:56px;border-radius:50%;',
+      'position:relative;overflow:hidden;',
       'background:rgba(99,102,241,.25);',
       'border:1.5px solid rgba(255,255,255,.35);',
       'backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);',
