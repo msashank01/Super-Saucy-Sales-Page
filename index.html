@@ -25,6 +25,25 @@
     .bg-orbs {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
     }
+    /* Subtle background grid + cursor-following glow */
+    #bg-fx { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    #bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(150,160,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150,160,255,.05) 1px, transparent 1px);
+      background-size: 90px 90px;
+      -webkit-mask-image: radial-gradient(ellipse 72% 60% at 50% 34%, #000 28%, transparent 92%);
+              mask-image: radial-gradient(ellipse 72% 60% at 50% 34%, #000 28%, transparent 92%);
+    }
+    #mouse-glow {
+      position: absolute; left: 0; top: 0;
+      width: 480px; height: 480px; margin: -240px 0 0 -240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(129,140,248,.18) 0%, rgba(99,102,241,.07) 38%, transparent 70%);
+      opacity: 0; transition: opacity .4s ease; will-change: transform;
+    }
+    @media (hover: none) { #mouse-glow { display: none; } }
     .bg-orbs span {
       position: absolute; border-radius: 50%; filter: blur(110px);
     }
@@ -886,6 +905,10 @@
 <body>
 <div class="bg-orbs">
   <span></span><span></span><span></span>
+</div>
+<div id="bg-fx">
+  <div id="bg-grid"></div>
+  <div id="mouse-glow"></div>
 </div>
 <div class="bg-noise"></div>
 <div class="bg-vignette"></div>
@@ -2273,6 +2296,17 @@ function makeCarousel(trackId, gap) {
 }
 
 window.lfSlide = makeCarousel('lf-track', 20);
+
+// Cursor-following background glow
+(function(){
+  var glow = document.getElementById('mouse-glow');
+  if (!glow || (window.matchMedia && window.matchMedia('(hover: none)').matches)) return;
+  window.addEventListener('mousemove', function(e){
+    glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+    glow.style.opacity = '1';
+  }, { passive: true });
+  document.addEventListener('mouseleave', function(){ glow.style.opacity = '0'; });
+})();
 </script>
 
 </body>
