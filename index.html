@@ -2409,5 +2409,27 @@ window.lfSlide = makeCarousel('lf-track', 20);
 })();
 </script>
 
+<script>
+// Rotate to landscape when a (landscape) video goes fullscreen on mobile
+(function(){
+  function onFsChange(){
+    var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    var o = screen.orientation;
+    if (fsEl) {
+      // don't force landscape for portrait short-form videos
+      var lb = document.getElementById('v-lightbox');
+      var isPortrait = lb && lb.classList.contains('lb-port');
+      if (!isPortrait && o && o.lock) {
+        o.lock('landscape').catch(function(){});
+      }
+    } else if (o && o.unlock) {
+      try { o.unlock(); } catch(e){}
+    }
+  }
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+})();
+</script>
+
 </body>
 </html>
