@@ -1104,7 +1104,7 @@
     // Start the showreel from the beginning once the viewer scrolls a little
     var heroStarted = false;
     function startHeroOnScroll() {
-      if (heroStarted || window.pageYOffset <= 70) return;
+      if (heroStarted || window.pageYOffset <= 180) return;
       heroStarted = true;
       window.removeEventListener('scroll', startHeroOnScroll);
       try { heroVideo.currentTime = 0; } catch (e) {}
