@@ -122,13 +122,6 @@
       animation: playFlash .75s ease forwards;
     }
 
-    /* Ambient rain overlay */
-    #rain-canvas {
-      position: fixed; inset: 0; width: 100vw; height: 100vh;
-      pointer-events: none; z-index: 9990; opacity: .9;
-    }
-    @media (prefers-reduced-motion: reduce) { #rain-canvas { display: none; } }
-
     /* ── TOKENS ── */
     :root {
       --bg:      #0A0A0F;
@@ -2252,65 +2245,5 @@ function makeCarousel(trackId, gap) {
 window.lfSlide = makeCarousel('lf-track', 20);
 </script>
 
-<!-- Ambient rain background -->
-<canvas id="rain-canvas" aria-hidden="true"></canvas>
-<script>
-(function(){
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var c = document.getElementById('rain-canvas');
-  if (!c || !c.getContext) return;
-  var ctx = c.getContext('2d');
-  var W, H, drops = [], ripples = [];
-
-  function resize(){
-    W = c.width  = window.innerWidth;
-    H = c.height = window.innerHeight;
-    var count = Math.min(150, Math.floor(W / 11));
-    drops = [];
-    for (var i = 0; i < count; i++) {
-      drops.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        len: 12 + Math.random() * 20,
-        v: 5 + Math.random() * 7,
-        a: 0.18 + Math.random() * 0.32
-      });
-    }
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function tick(){
-    ctx.clearRect(0, 0, W, H);
-    ctx.lineWidth = 1.4;
-    for (var i = 0; i < drops.length; i++) {
-      var d = drops[i];
-      ctx.strokeStyle = 'rgba(190,200,255,' + d.a + ')';
-      ctx.beginPath();
-      ctx.moveTo(d.x, d.y);
-      ctx.lineTo(d.x, d.y + d.len);
-      ctx.stroke();
-      d.y += d.v;
-      if (d.y > H) {
-        ripples.push({ x: d.x, y: H - 1, r: 1, a: 0.35 }); // splash on the "ground"
-        d.y = -d.len;
-        d.x = Math.random() * W;
-      }
-    }
-    for (var j = ripples.length - 1; j >= 0; j--) {
-      var rp = ripples[j];
-      ctx.strokeStyle = 'rgba(190,200,255,' + Math.max(rp.a, 0) + ')';
-      ctx.beginPath();
-      ctx.arc(rp.x, rp.y, rp.r, Math.PI, 2 * Math.PI); // upper half — ripple spreading on the surface
-      ctx.stroke();
-      rp.r += 0.7;
-      rp.a -= 0.012;
-      if (rp.a <= 0) ripples.splice(j, 1);
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
-</script>
 </body>
 </html>
