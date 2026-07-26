@@ -617,8 +617,17 @@
       to   { stroke-dasharray: 260 300; }
     }
     .s-wave-stroke {
-      animation: s-wave-draw .8s cubic-bezier(.4,0,.2,1) both;
+      animation: s-wave-draw 1.5s cubic-bezier(.4,0,.2,1) both;
       filter: drop-shadow(0 0 4px rgba(99,102,241,.9)) drop-shadow(0 0 10px rgba(99,102,241,.5));
+    }
+    /* Highlight box sweeps in like a marker */
+    @keyframes hl-reveal {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+    .hl-box {
+      transform-origin: left center;
+      animation: hl-reveal 1.2s cubic-bezier(.22,1,.36,1) both;
     }
 
     /* ── YT THUMBNAIL ── */
@@ -1393,7 +1402,7 @@
   <div class="container" style="position:relative; z-index:1;">
     <div style="text-align:center; margin-bottom:64px;">
       <span class="s-tag">Client Testimonials</span>
-      <h2 class="s-title">How <span style="position:relative;display:inline-block;"><span style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">clients</span></span> feel.</h2>
+      <h2 class="s-title">How <span style="position:relative;display:inline-block;"><span class="hl-box" style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">clients</span></span> feel.</h2>
     </div>
     <div class="t-slider-wrap">
       <button class="t-btn" onclick="tSlide(-1)">&#8249;</button>
@@ -1529,7 +1538,7 @@
   <div class="container">
     <div style="max-width:680px; margin:0 auto; text-align:center;">
       <span class="s-tag">About Me</span>
-      <h2 class="s-title" style="margin-bottom:24px;">Editing that <span style="position:relative;display:inline-block;"><span style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">builds</span></span> audiences.</h2>
+      <h2 class="s-title" style="margin-bottom:24px;">Editing that <span style="position:relative;display:inline-block;"><span class="hl-box" style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">builds</span></span> audiences.</h2>
       <p style="font-size:16px; line-height:1.85; color:var(--muted);">
         I'm Mohan Sashank, a freelance video editor. I work with creators and brands to turn raw footage into content that actually holds attention and keeps people watching.<br>Every video is built to perform.
       </p>
@@ -1656,7 +1665,7 @@
 
     <div style="text-align:center; margin-bottom:72px;">
       <span class="s-tag">Recent Work</span>
-      <h2 class="s-title">Stuff I've <span style="position:relative;display:inline-block;"><span style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">worked</span></span> on recently.</h2>
+      <h2 class="s-title">Stuff I've <span style="position:relative;display:inline-block;"><span class="hl-box" style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">worked</span></span> on recently.</h2>
     </div>
 
     <!-- LONG FORM -->
@@ -1853,7 +1862,7 @@
 <section class="section" id="results" style="position:relative; background:linear-gradient(135deg,rgba(99,102,241,.06) 0%,rgba(139,92,246,.04) 40%,rgba(99,102,241,.06) 100%); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-top:1px solid rgba(255,255,255,.07); border-bottom:1px solid rgba(255,255,255,.07); box-shadow:0 0 0 1px rgba(255,255,255,.03) inset, 0 8px 60px rgba(99,102,241,.12), 0 0 120px rgba(99,102,241,.06);">
   <div class="container" style="text-align:center;">
     <span class="s-tag">Results</span>
-    <h2 class="s-title"><span style="position:relative;display:inline-block;"><span style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Numbers</span></span> don't lie.</h2>
+    <h2 class="s-title"><span style="position:relative;display:inline-block;"><span class="hl-box" style="position:absolute;inset:0px -3px;background:rgba(99,102,241,.3);border-radius:4px;box-shadow:0 0 18px rgba(99,102,241,.35);border:1px solid rgba(99,102,241,.5);"></span><span style="position:relative;background:linear-gradient(135deg,#6366f1 0%,#818cf8 50%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Numbers</span></span> don't lie.</h2>
     <div class="r-grid">
       <div class="r-item">
         <span class="r-num">30M</span>
@@ -2077,6 +2086,25 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     svg.appendChild(path);
     el.appendChild(svg);
     observer.observe(el);
+  });
+})();
+
+// ── HIGHLIGHT BOX SWEEP (replays on scroll into view) ──
+(function () {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.style.animation = 'none';
+        void el.offsetWidth; // force reflow
+        el.style.animation = '';
+        el.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.hl-box').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    obs.observe(el);
   });
 })();
 
