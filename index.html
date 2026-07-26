@@ -629,11 +629,8 @@
     @media (max-width: 900px) { .lf-track > .v-card { flex: 0 0 calc((100% - 20px) / 2); } }
     @media (max-width: 560px) { .lf-track > .v-card { flex: 0 0 100%; } .lf-arrow { width: 40px; height: 40px; font-size: 20px; } }
 
-    /* Nav buttons centered below the long-form row */
-    .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 30px; }
-    /* Push the nav to the bottom edge of the long-form panel */
-    .lf-panel { display: flex; flex-direction: column; }
-    .lf-panel .lf-nav { margin-top: auto; padding-top: 24px; }
+    /* Nav buttons centered between the video panel and the DM Me CTA */
+    .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 28px; }
     /* Each long-form video sits in its own nested box: a padded card box
        with the video nested inside it (box-in-box) */
     .lf-track .v-card {
@@ -1579,7 +1576,7 @@
       <div class="sub-divider-line"></div>
     </div>
 
-    <div class="grid-glass lf-panel">
+    <div class="grid-glass">
       <div class="lf-viewport">
       <div class="lf-track" id="lf-track">
 
@@ -1621,10 +1618,11 @@
 
       </div>
       </div>
-      <div class="lf-nav">
-        <button class="lf-arrow" onclick="lfSlide(-1)" aria-label="Previous">&#8249;</button>
-        <button class="lf-arrow" onclick="lfSlide(1)" aria-label="Next">&#8250;</button>
-      </div>
+    </div>
+
+    <div class="lf-nav">
+      <button class="lf-arrow" onclick="lfSlide(-1)" aria-label="Previous">&#8249;</button>
+      <button class="lf-arrow" onclick="lfSlide(1)" aria-label="Next">&#8250;</button>
     </div>
 
     <!-- CTA after long form -->
