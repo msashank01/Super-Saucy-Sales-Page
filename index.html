@@ -261,6 +261,7 @@
 
     /* ── CTA BUTTON ── */
     .btn {
+      position: relative; overflow: hidden;
       display: inline-flex; align-items: center; gap: 7px;
       background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #8b5cf6 75%, #e2d9ff 100%);
       color: #fff;
@@ -279,6 +280,15 @@
         inset 0 -1px 0 rgba(0,0,0,.15);
     }
     .btn:hover  { opacity: .92; transform: scale(1.08); box-shadow: 0 0 30px rgba(99,102,241,.6), 0 0 70px rgba(139,92,246,.3), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(0,0,0,.15); }
+    /* Shine sweep on hover */
+    .btn::after {
+      content: ''; position: absolute; top: 0; left: -80%;
+      width: 60%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.5) 50%, transparent 100%);
+      transform: skewX(-20deg); pointer-events: none;
+    }
+    .btn:hover::after { animation: btn-shine .7s ease; }
+    @keyframes btn-shine { from { left: -80%; } to { left: 130%; } }
     .btn:active { transform: translateY(0); }
     .btn-lg {
       font-size: 15px; padding: 13px 30px; border-radius: 7px;
