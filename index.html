@@ -1021,7 +1021,7 @@
     <video
       id="hero-video"
       src="EllIOT%20PHILLIPS%20-%20RE%20EDIT%20INTRO.mp4"
-      autoplay muted loop playsinline preload="auto"
+      muted loop playsinline preload="auto"
     ></video>
     <!-- Loading poster (hidden once playback starts) -->
     <div id="hero-poster" class="hero-poster"><div class="spinner"></div></div>
@@ -1086,20 +1086,31 @@
     var heroPaused = false;
     var heroDuration = 0;
 
-    // Fade out the loading poster once the showreel actually starts playing,
-    // and reveal the "tap to unmute" hint (autoplay starts muted)
+    // Reveal the first frame as soon as it's ready (don't autoplay — wait for a
+    // small scroll so the viewer doesn't miss the start), then reveal the hint
     var heroPoster = document.getElementById('hero-poster');
     var unmuteHint = document.getElementById('hero-unmute-hint');
     var unmuteDismissed = false;
-    function hideHeroPoster() {
-      if (heroPoster) heroPoster.classList.add('loaded');
+    function hideHeroPoster() { if (heroPoster) heroPoster.classList.add('loaded'); }
+    function revealUnmuteHint() {
       if (unmuteHint && heroMuted && !unmuteDismissed) unmuteHint.classList.remove('hidden');
     }
     function hideUnmuteHint() { unmuteDismissed = true; if (unmuteHint) unmuteHint.classList.add('hidden'); }
     function unmuteHero(e) { if (e) e.stopPropagation(); if (heroMuted) toggleHeroMute(); hideUnmuteHint(); }
-    heroVideo.addEventListener('playing', hideHeroPoster);
-    heroVideo.addEventListener('timeupdate', hideHeroPoster);
+    heroVideo.addEventListener('loadeddata', hideHeroPoster); // show first frame while paused
+    heroVideo.addEventListener('playing', function(){ hideHeroPoster(); revealUnmuteHint(); });
     setTimeout(hideHeroPoster, 7000); // safety fallback
+
+    // Start the showreel from the beginning once the viewer scrolls a little
+    var heroStarted = false;
+    function startHeroOnScroll() {
+      if (heroStarted || window.pageYOffset <= 70) return;
+      heroStarted = true;
+      window.removeEventListener('scroll', startHeroOnScroll);
+      try { heroVideo.currentTime = 0; } catch (e) {}
+      heroVideo.play().catch(function(){});
+    }
+    window.addEventListener('scroll', startHeroOnScroll, { passive: true });
 
     function fmtTime(s) {
       s = Math.floor(s) || 0;
