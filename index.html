@@ -778,6 +778,8 @@
     .f-grid {
       display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px;
     }
+    /* Desktop: vertically center the Contact column against the taller columns */
+    .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: center; }
     .f-col-brand .logo-lg {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 24px; font-weight: 700; letter-spacing: -.5px; color: var(--text);
