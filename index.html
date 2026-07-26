@@ -289,6 +289,22 @@
     }
     .btn:hover::after { animation: btn-shine .7s ease; }
     @keyframes btn-shine { from { left: -80%; } to { left: 130%; } }
+    /* Shine sweep on all other buttons (nav links, arrows, social, carousel) */
+    .nav-link, .t-btn, .lf-arrow, .f-social a { overflow: hidden; }
+    .t-btn, .lf-arrow, .f-social a { position: relative; }
+    .nav-link::before,
+    .t-btn::after,
+    .lf-arrow::after,
+    .f-social a::after {
+      content: ''; position: absolute; top: 0; left: -85%;
+      width: 55%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.4) 50%, transparent 100%);
+      transform: skewX(-20deg); pointer-events: none;
+    }
+    .nav-link:hover::before,
+    .t-btn:hover::after,
+    .lf-arrow:hover::after,
+    .f-social a:hover::after { animation: btn-shine .7s ease; }
     .btn:active { transform: translateY(0); }
     .btn-lg {
       font-size: 15px; padding: 13px 30px; border-radius: 7px;
