@@ -781,6 +781,11 @@
     /* Desktop: vertically center the Contact column and center its contents
        (heading, icons, DM Me) horizontally so they line up */
     .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    /* Larger Contact icons + DM Me button */
+    .f-grid > .f-col:last-child .f-social { gap: 18px; }
+    .f-grid > .f-col:last-child .f-social a { width: 58px; height: 58px; }
+    .f-grid > .f-col:last-child .f-social svg { width: 24px; height: 24px; }
+    .f-grid > .f-col:last-child .btn { font-size: 16px; padding: 14px 38px; border-radius: 9px; }
     .f-col-brand .logo-lg {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 24px; font-weight: 700; letter-spacing: -.5px; color: var(--text);
