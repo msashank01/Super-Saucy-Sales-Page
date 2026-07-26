@@ -603,6 +603,12 @@
     .sf-grid {
       display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; margin-bottom: 20px;
     }
+    /* Short-form slider (5 per view, continuous carousel) */
+    .sf-viewport { overflow: hidden; }
+    .sf-track { display: flex; gap: 16px; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+    .sf-track > .v-card { flex: 0 0 calc((100% - 64px) / 5); }
+    @media (max-width: 900px) { .sf-track > .v-card { flex: 0 0 calc((100% - 32px) / 3); } }
+    @media (max-width: 560px) { .sf-track > .v-card { flex: 0 0 calc((100% - 16px) / 2); } }
 
     /* Long-form paged slider (3 cards per view) */
     .lf-slider { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
@@ -1630,7 +1636,53 @@
     </div>
 
     <div class="grid-glass">
-    <div class="sf-grid">
+      <div class="sf-viewport">
+      <div class="sf-track" id="sf-track">
+
+      <div class="v-card">
+        <div class="thumb port">
+          <video src="Test%20Editing%20Task%20-%20Mohan%20Editor-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Test Editing Task</span>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port">
+          <video src="TYPE%20BRAND%20EDIT-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Type Brand Edit</span>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port">
+          <video src="TYPE%20BRAND%20EDIT%202-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Type Brand Edit 2</span>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port">
+          <video src="Ryan%20-%20Test%20edit-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Ryan &ndash; Test Edit</span>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port">
+          <video src="VIKKI%20-%20BTS%20EDIT%202-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="v-meta">
+          <span class="v-client">Vikki &ndash; BTS Edit</span>
+        </div>
+      </div>
 
       <div class="v-card">
         <div class="thumb port">
@@ -1682,52 +1734,12 @@
         </div>
       </div>
 
-      <div class="v-card">
-        <div class="thumb port">
-          <video src="Test%20Editing%20Task%20-%20Mohan%20Editor-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Test Editing Task</span>
-        </div>
       </div>
-
-      <div class="v-card">
-        <div class="thumb port">
-          <video src="TYPE%20BRAND%20EDIT-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Type Brand Edit</span>
-        </div>
       </div>
-
-      <div class="v-card">
-        <div class="thumb port">
-          <video src="TYPE%20BRAND%20EDIT%202-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Type Brand Edit 2</span>
-        </div>
+      <div class="lf-nav">
+        <button class="lf-arrow" onclick="sfSlide(-1)" aria-label="Previous">&#8249;</button>
+        <button class="lf-arrow" onclick="sfSlide(1)" aria-label="Next">&#8250;</button>
       </div>
-
-      <div class="v-card">
-        <div class="thumb port">
-          <video src="Ryan%20-%20Test%20edit-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Ryan &ndash; Test Edit</span>
-        </div>
-      </div>
-
-      <div class="v-card">
-        <div class="thumb port">
-          <video src="VIKKI%20-%20BTS%20EDIT%202-web.mp4#t=0.1" muted playsinline preload="metadata"></video>
-        </div>
-        <div class="v-meta">
-          <span class="v-client">Vikki &ndash; BTS Edit</span>
-        </div>
-      </div>
-
-    </div>
     </div>
 
     <!-- CTA after short form -->
@@ -2175,17 +2187,16 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
 </script>
 
 <script>
-// ── LONG-FORM CONTINUOUS CAROUSEL (recycles cards, loops forever) ──
-(function(){
-  var GAP = 20; // matches .lf-track gap
+// ── CONTINUOUS CAROUSEL (recycles cards, loops forever) — reusable ──
+function makeCarousel(trackId, gap) {
   var EASE = 'transform .5s cubic-bezier(.22,1,.36,1)';
-  var track = document.getElementById('lf-track');
-  if (!track) return;
+  var track = document.getElementById(trackId);
+  if (!track) return function(){};
   var animating = false;
 
   function step() {
     var card = track.firstElementChild;
-    return card ? card.getBoundingClientRect().width + GAP : 0;
+    return card ? card.getBoundingClientRect().width + gap : 0;
   }
 
   // Next: slide left one card, then move the first card to the end (seamless loop)
@@ -2222,8 +2233,11 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     track.addEventListener('transitionend', onEnd);
   }
 
-  window.lfSlide = function(dir) { dir > 0 ? next() : prev(); };
-})();
+  return function(dir) { dir > 0 ? next() : prev(); };
+}
+
+window.lfSlide = makeCarousel('lf-track', 20);
+window.sfSlide = makeCarousel('sf-track', 16);
 </script>
 </body>
 </html>
