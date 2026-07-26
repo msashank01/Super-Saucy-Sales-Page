@@ -759,6 +759,16 @@
     }
     /* Transparent tap-zone across the top to re-show controls (portrait only) */
     #lb-tap-top { display: none; position: fixed; top: 0; left: 0; right: 0; height: 96px; z-index: 15; }
+    /* Center play/pause button (mobile lightbox) */
+    #v-lb-playpause {
+      display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      z-index: 12; width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(10,10,15,.5); border: 1.5px solid rgba(255,255,255,.35);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center; cursor: pointer;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    @media (max-width: 768px) { #v-lb-playpause { display: flex; } }
     /* Keep nav buttons above the full-width mobile video so they're tappable
        when shown (the iframe would otherwise paint over them). */
     @media (hover: none) {
@@ -2155,6 +2165,8 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
 <div id="v-lightbox" onclick="if(event.target===this)closeLightbox()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;">
   <!-- Top tap-zone: re-reveals controls for full-screen portrait videos -->
   <div id="lb-tap-top"></div>
+  <!-- Center play/pause (mobile) -->
+  <button id="v-lb-playpause" onclick="lbTogglePlay()" aria-label="Play / Pause"></button>
   <!-- Prev -->
   <button id="v-lb-prev" onclick="lbNav(-1)" onmouseover="this.style.background='rgba(99,102,241,.5)';this.style.borderColor='rgba(99,102,241,.7)';this.style.boxShadow='0 0 20px rgba(99,102,241,.4)';this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.background='rgba(20,20,35,.75)';this.style.borderColor='rgba(255,255,255,.3)';this.style.boxShadow='0 4px 24px rgba(0,0,0,.5)';this.style.transform='translateY(-50%) scale(1)'" style="position:fixed;left:28px;top:50%;transform:translateY(-50%);background:rgba(20,20,35,.75);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:28px;width:56px;height:56px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .3s,background .2s,box-shadow .2s,transform .2s;opacity:0;pointer-events:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,.5);">&#8249;</button>
   <!-- Next -->
@@ -2187,6 +2199,9 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     var frame = document.getElementById('v-lightbox-frame');
     lbPlayer = new Vimeo.Player(frame);
     lbPaused = false;
+    lbSetPlayIcon(false);
+    lbPlayer.on('play',  function(){ lbPaused = false; lbSetPlayIcon(false); });
+    lbPlayer.on('pause', function(){ lbPaused = true;  lbSetPlayIcon(true); });
   }
 
   var lbFlashGrad = '<defs><linearGradient id="lfg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c7d2fe"/></linearGradient></defs>';
@@ -2211,6 +2226,26 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
       lbPlayer.pause();
       lbPaused = true;
     }
+  };
+
+  function lbSetPlayIcon(paused) {
+    var b = document.getElementById('v-lb-playpause');
+    if (!b) return;
+    b.innerHTML = paused
+      ? '<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" style="margin-left:3px"><polygon points="6 4 20 12 6 20 6 4"/></svg>'
+      : '<svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  }
+  // Unified play/pause for the center button (Vimeo or local video)
+  window.lbTogglePlay = function() {
+    var item = lbSrcs[lbIdx];
+    if (item && item.type === 'video') {
+      var v = document.getElementById('v-lightbox-video');
+      if (v.paused) { v.play(); } else { v.pause(); }
+    } else if (lbPlayer) {
+      if (lbPaused) { lbPlayer.play(); lbPaused = false; lbSetPlayIcon(false); }
+      else { lbPlayer.pause(); lbPaused = true; lbSetPlayIcon(true); }
+    }
+    if (typeof showControls === 'function') showControls();
   };
 
   // Collect all thumb media (Vimeo iframes + local videos) and add click overlays
@@ -2282,6 +2317,9 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
       vid.style.display = 'block';
       vid.src = item.src.split('#')[0];
       vid.currentTime = 0;
+      vid.onplay  = function(){ lbSetPlayIcon(false); };
+      vid.onpause = function(){ lbSetPlayIcon(true); };
+      lbSetPlayIcon(false);
       vid.play().catch(function(){});
     } else {
       vid.pause(); vid.removeAttribute('src'); vid.style.display = 'none';
@@ -2331,14 +2369,15 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   var controls = [
     document.getElementById('v-lb-close'),
     document.getElementById('v-lb-prev'),
-    document.getElementById('v-lb-next')
+    document.getElementById('v-lb-next'),
+    document.getElementById('v-lb-playpause')
   ];
   var lbEl = document.getElementById('v-lightbox');
   function showControls() {
     controls.forEach(function(el) { el.style.opacity='1'; el.style.pointerEvents='auto'; });
     lbEl.classList.remove('cursor-hidden');
     clearTimeout(hideTimer);
-    hideTimer = setTimeout(hideControls, 2000);
+    hideTimer = setTimeout(hideControls, 3800);
   }
   function hideControls() {
     controls.forEach(function(el) { el.style.opacity='0'; el.style.pointerEvents='none'; });
