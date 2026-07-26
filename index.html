@@ -2151,7 +2151,7 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
       <!-- Local video player (used for non-Vimeo card sources) -->
       <video id="v-lightbox-video" playsinline controls preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:cover;border-radius:14px;clip-path:inset(0 round 14px);display:none;z-index:4;"></video>
       <!-- Transparent click overlay for play/pause inside lightbox -->
-      <div id="v-lb-click-overlay" onclick="toggleLbPlay()" style="position:absolute;inset:0;z-index:2;cursor:pointer;"></div>
+      <div id="v-lb-click-overlay" style="position:absolute;inset:0;z-index:2;pointer-events:none;"></div>
       <!-- Play/pause flash indicator -->
       <div id="lb-flash" class="play-flash">
         <svg id="lb-flash-icon" width="26" height="26" viewBox="0 0 24 24" fill="white"></svg>
