@@ -786,8 +786,20 @@
     }
     .f-col-brand p { font-size: 13.5px; color: var(--muted); line-height: 1.6; max-width: 240px; margin-bottom: 20px; margin-top: -28px; }
     .f-social { display: flex; gap: 14px; }
-    .f-social a { color: rgba(226,232,240,.35); transition: color .15s; }
-    .f-social a:hover { color: var(--text); }
+    .f-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(226,232,240,.5);
+      transition: color .2s, border-color .2s, background .2s, box-shadow .2s, transform .2s;
+    }
+    .f-social a:hover {
+      color: #fff;
+      border-color: rgba(99,102,241,.75);
+      background: rgba(99,102,241,.12);
+      box-shadow: 0 0 20px rgba(99,102,241,.5);
+      transform: translateY(-2px);
+    }
     .f-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text); margin-bottom: 18px; }
     .f-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; }
     .f-col ul li a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s, transform .2s; display: inline-block; }
