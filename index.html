@@ -1629,15 +1629,15 @@
       <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" class="btn btn-lg">DM Me</a>
     </div>
 
-    <!-- SHORT FORM -->
+    <!-- UGC ADS -->
     <div class="sub-divider" style="margin-top:48px;">
-      <span class="sub-divider-label">Short Form</span>
+      <span class="sub-divider-label">UGC Ads</span>
       <div class="sub-divider-line"></div>
     </div>
 
     <div class="grid-glass">
       <div class="sf-viewport">
-      <div class="sf-track" id="sf-track">
+      <div class="sf-track" id="ugc-track">
 
       <div class="v-card">
         <div class="thumb port">
@@ -1683,6 +1683,24 @@
           <span class="v-client">Vikki &ndash; BTS Edit</span>
         </div>
       </div>
+
+      </div>
+      </div>
+      <div class="lf-nav">
+        <button class="lf-arrow" onclick="ugcSlide(-1)" aria-label="Previous">&#8249;</button>
+        <button class="lf-arrow" onclick="ugcSlide(1)" aria-label="Next">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- VIRAL EDITS -->
+    <div class="sub-divider" style="margin-top:48px;">
+      <span class="sub-divider-label">Viral Edits</span>
+      <div class="sub-divider-line"></div>
+    </div>
+
+    <div class="grid-glass">
+      <div class="sf-viewport">
+      <div class="sf-track" id="viral-track">
 
       <div class="v-card">
         <div class="thumb port">
@@ -1737,8 +1755,8 @@
       </div>
       </div>
       <div class="lf-nav">
-        <button class="lf-arrow" onclick="sfSlide(-1)" aria-label="Previous">&#8249;</button>
-        <button class="lf-arrow" onclick="sfSlide(1)" aria-label="Next">&#8250;</button>
+        <button class="lf-arrow" onclick="viralSlide(-1)" aria-label="Previous">&#8249;</button>
+        <button class="lf-arrow" onclick="viralSlide(1)" aria-label="Next">&#8250;</button>
       </div>
     </div>
 
@@ -2237,7 +2255,8 @@ function makeCarousel(trackId, gap) {
 }
 
 window.lfSlide = makeCarousel('lf-track', 20);
-window.sfSlide = makeCarousel('sf-track', 16);
+window.ugcSlide = makeCarousel('ugc-track', 16);
+window.viralSlide = makeCarousel('viral-track', 16);
 </script>
 </body>
 </html>
