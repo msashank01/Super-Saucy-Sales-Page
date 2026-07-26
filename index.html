@@ -2047,10 +2047,14 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   const ns = 'http://www.w3.org/2000/svg';
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const stroke = entry.target.querySelector('.s-wave-stroke');
+      if (!stroke) return;
       if (entry.isIntersecting) {
-        const stroke = entry.target.querySelector('.s-wave-stroke');
-        if (stroke) stroke.style.animationPlayState = 'running';
-        observer.unobserve(entry.target);
+        // restart the draw animation every time it re-enters view
+        stroke.style.animation = 'none';
+        void stroke.offsetWidth; // force reflow
+        stroke.style.animation = '';
+        stroke.style.animationPlayState = 'running';
       }
     });
   }, { threshold: 0.4 });
