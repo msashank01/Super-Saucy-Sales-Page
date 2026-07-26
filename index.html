@@ -631,6 +631,9 @@
 
     /* Nav buttons centered below the long-form row */
     .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 30px; }
+    /* Push the nav to the bottom edge of the long-form panel */
+    .lf-panel { display: flex; flex-direction: column; }
+    .lf-panel .lf-nav { margin-top: auto; padding-top: 24px; }
     /* Each long-form video sits in its own nested box: a padded card box
        with the video nested inside it (box-in-box) */
     .lf-track .v-card {
@@ -1576,7 +1579,7 @@
       <div class="sub-divider-line"></div>
     </div>
 
-    <div class="grid-glass">
+    <div class="grid-glass lf-panel">
       <div class="lf-viewport">
       <div class="lf-track" id="lf-track">
 
