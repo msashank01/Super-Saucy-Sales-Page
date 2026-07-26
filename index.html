@@ -27,15 +27,18 @@
     }
     /* Subtle background grid + cursor-following glow */
     #bg-fx { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    /* Grid only revealed around the cursor (hidden otherwise) */
     #bg-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(150,160,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(150,160,255,.05) 1px, transparent 1px);
+        linear-gradient(rgba(150,160,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150,160,255,.08) 1px, transparent 1px);
       background-size: 90px 90px;
-      -webkit-mask-image: radial-gradient(ellipse 72% 60% at 50% 34%, #000 28%, transparent 92%);
-              mask-image: radial-gradient(ellipse 72% 60% at 50% 34%, #000 28%, transparent 92%);
+      -webkit-mask-image: radial-gradient(circle 240px at var(--mx, -600px) var(--my, -600px), #000 0%, rgba(0,0,0,.35) 48%, transparent 76%);
+              mask-image: radial-gradient(circle 240px at var(--mx, -600px) var(--my, -600px), #000 0%, rgba(0,0,0,.35) 48%, transparent 76%);
+      opacity: 0; transition: opacity .35s ease;
     }
+    /* Large soft glow behind the cursor */
     #mouse-glow {
       position: absolute; left: 0; top: 0;
       width: 480px; height: 480px; margin: -240px 0 0 -240px;
@@ -43,7 +46,15 @@
       background: radial-gradient(circle, rgba(129,140,248,.18) 0%, rgba(99,102,241,.07) 38%, transparent 70%);
       opacity: 0; transition: opacity .4s ease; will-change: transform;
     }
-    @media (hover: none) { #mouse-glow { display: none; } }
+    /* Small bright glow right on the cursor tip */
+    #mouse-tip {
+      position: absolute; left: 0; top: 0;
+      width: 26px; height: 26px; margin: -13px 0 0 -13px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(199,210,254,.85) 0%, rgba(129,140,248,.4) 45%, transparent 72%);
+      opacity: 0; transition: opacity .3s ease; will-change: transform; mix-blend-mode: screen;
+    }
+    @media (hover: none) { #bg-grid, #mouse-glow, #mouse-tip { display: none; } }
     .bg-orbs span {
       position: absolute; border-radius: 50%; filter: blur(110px);
     }
@@ -909,6 +920,7 @@
 <div id="bg-fx">
   <div id="bg-grid"></div>
   <div id="mouse-glow"></div>
+  <div id="mouse-tip"></div>
 </div>
 <div class="bg-noise"></div>
 <div class="bg-vignette"></div>
@@ -2297,15 +2309,26 @@ function makeCarousel(trackId, gap) {
 
 window.lfSlide = makeCarousel('lf-track', 20);
 
-// Cursor-following background glow
+// Cursor-following grid reveal + glows
 (function(){
+  var fx   = document.getElementById('bg-fx');
+  var grid = document.getElementById('bg-grid');
   var glow = document.getElementById('mouse-glow');
-  if (!glow || (window.matchMedia && window.matchMedia('(hover: none)').matches)) return;
+  var tip  = document.getElementById('mouse-tip');
+  if (!fx || (window.matchMedia && window.matchMedia('(hover: none)').matches)) return;
   window.addEventListener('mousemove', function(e){
-    glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
-    glow.style.opacity = '1';
+    var t = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+    fx.style.setProperty('--mx', e.clientX + 'px');
+    fx.style.setProperty('--my', e.clientY + 'px');
+    if (glow) { glow.style.transform = t; glow.style.opacity = '1'; }
+    if (tip)  { tip.style.transform = t;  tip.style.opacity = '1'; }
+    if (grid) grid.style.opacity = '1';
   }, { passive: true });
-  document.addEventListener('mouseleave', function(){ glow.style.opacity = '0'; });
+  document.addEventListener('mouseleave', function(){
+    if (grid) grid.style.opacity = '0';
+    if (glow) glow.style.opacity = '0';
+    if (tip)  tip.style.opacity = '0';
+  });
 })();
 </script>
 
