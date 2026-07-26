@@ -2072,9 +2072,11 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
       const stroke = entry.target.querySelector('.s-wave-stroke');
       if (!stroke) return;
       if (entry.isIntersecting) {
-        // restart the draw animation every time it re-enters view
+        // restart the draw animation every time it re-enters view.
+        // reflow the parent (an HTML element) — an SVG path's offsetWidth
+        // does not reliably force a reflow.
         stroke.style.animation = 'none';
-        void stroke.offsetWidth; // force reflow
+        void entry.target.offsetWidth; // force reflow
         stroke.style.animation = '';
         stroke.style.animationPlayState = 'running';
       }
