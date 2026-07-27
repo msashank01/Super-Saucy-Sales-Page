@@ -58,6 +58,9 @@
     /* Fit (not crop/zoom) the local video when it goes fullscreen */
     #v-lightbox-video:fullscreen { object-fit: contain !important; }
     #v-lightbox-video:-webkit-full-screen { object-fit: contain !important; }
+    /* Hide the native big center play button — use only the purple one */
+    #v-lightbox-video::-webkit-media-controls-overlay-play-button { display: none !important; }
+    #v-lightbox-video::-webkit-media-controls-start-playback-button { display: none !important; }
     .bg-orbs span {
       position: absolute; border-radius: 50%; filter: blur(110px);
     }
