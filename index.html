@@ -879,16 +879,24 @@
     /* ── FAQ ── */
     .faq-list { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
     .faq-item {
-      border: 1px solid rgba(255,255,255,.09); border-radius: 14px;
-      background: #14141f; overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,.35);
-      transition: border-color .25s, box-shadow .25s, transform .25s ease;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 14px;
+      background: #1c1c2b; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.4);
+      transition: border-color .3s ease, box-shadow .3s ease, transform .3s cubic-bezier(.22,1,.36,1);
     }
     .faq-item:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: rgba(99,102,241,.55);
-      box-shadow: 0 0 30px rgba(99,102,241,.35), 0 12px 34px rgba(0,0,0,.5);
+      box-shadow: 0 0 34px rgba(99,102,241,.4), 0 14px 38px rgba(0,0,0,.55);
     }
+    /* Shine sweep across the card on hover */
+    .faq-item::after {
+      content: ''; position: absolute; top: 0; left: -85%; width: 55%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.13) 50%, transparent 100%);
+      transform: skewX(-20deg); pointer-events: none; z-index: 3;
+    }
+    .faq-item:hover::after { animation: btn-shine .8s ease; }
     .faq-item.open { border-color: rgba(99,102,241,.5); box-shadow: 0 0 28px rgba(99,102,241,.22), 0 10px 30px rgba(0,0,0,.45); }
     .faq-q {
       width: 100%; text-align: left; background: none; border: 0; color: var(--text);
@@ -903,7 +911,7 @@
       transition: transform .3s ease, background .2s, color .2s;
     }
     .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(99,102,241,.22); color: #fff; }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.22,1,.36,1); }
     .faq-a-inner { padding: 0 30px 26px; color: var(--muted); font-size: 16.5px; line-height: 1.75; }
     .faq-a-inner a { color: #a5b4fc; text-decoration: underline; text-underline-offset: 2px; }
     .faq-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
