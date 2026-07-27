@@ -877,7 +877,7 @@
     .r-label { font-size: 12.5px; color: var(--muted); line-height: 1.4; max-width: 100px; }
 
     /* ── FAQ ── */
-    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+    .faq-list { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
     .faq-item {
       border: 1px solid var(--border); border-radius: 14px;
       background: rgba(255,255,255,.02); overflow: hidden;
@@ -886,27 +886,27 @@
     .faq-item.open { border-color: rgba(99,102,241,.45); box-shadow: 0 0 24px rgba(99,102,241,.12); }
     .faq-q {
       width: 100%; text-align: left; background: none; border: 0; color: var(--text);
-      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
-      padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 600;
+      padding: 26px 30px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
       cursor: pointer;
     }
     .faq-chevron {
-      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
       border: 1px solid rgba(99,102,241,.45); color: #a5b4fc;
       display: flex; align-items: center; justify-content: center;
       transition: transform .3s ease, background .2s, color .2s;
     }
     .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(99,102,241,.22); color: #fff; }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-    .faq-a-inner { padding: 0 24px 20px; color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+    .faq-a-inner { padding: 0 30px 26px; color: var(--muted); font-size: 16.5px; line-height: 1.75; }
     .faq-a-inner a { color: #a5b4fc; text-decoration: underline; text-underline-offset: 2px; }
-    .faq-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
-    .faq-points li { position: relative; padding-left: 26px; }
+    .faq-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+    .faq-points li { position: relative; padding-left: 30px; }
     .faq-points li::before {
-      content: ''; position: absolute; left: 3px; top: 5px; width: 12px; height: 12px;
+      content: ''; position: absolute; left: 3px; top: 6px; width: 14px; height: 14px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E") no-repeat center / contain;
     }
-    @media (max-width: 560px) { .faq-q { font-size: 15px; padding: 16px 18px; } .faq-a-inner { padding: 0 18px 16px; } }
+    @media (max-width: 560px) { .faq-q { font-size: 16.5px; padding: 20px 20px; } .faq-a-inner { padding: 0 20px 20px; font-size: 15.5px; } }
 
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 64px 0 40px; background: rgba(0,0,0,.4); }
