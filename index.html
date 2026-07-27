@@ -766,14 +766,13 @@
     #lb-tap-top { display: none; position: fixed; top: 0; left: 0; right: 0; height: 96px; z-index: 15; }
     /* Center play/pause button (mobile lightbox) */
     #v-lb-playpause {
-      display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      display: flex; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
       z-index: 12; width: 68px; height: 68px; border-radius: 50%;
       background: rgba(10,10,15,.5); border: 1.5px solid rgba(255,255,255,.35);
       -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
       align-items: center; justify-content: center; cursor: pointer;
       opacity: 0; pointer-events: none; transition: opacity .3s;
     }
-    @media (max-width: 768px) { #v-lb-playpause { display: flex; } }
     /* Keep nav buttons above the full-width mobile video so they're tappable
        when shown (the iframe would otherwise paint over them). Use width too —
        some phones report hover:hover, so hover:none alone misses them. */
