@@ -899,6 +899,13 @@
     .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(99,102,241,.22); color: #fff; }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
     .faq-a-inner { padding: 0 24px 20px; color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+    .faq-a-inner a { color: #a5b4fc; text-decoration: underline; text-underline-offset: 2px; }
+    .faq-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+    .faq-points li { position: relative; padding-left: 26px; }
+    .faq-points li::before {
+      content: ''; position: absolute; left: 3px; top: 5px; width: 12px; height: 12px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
     @media (max-width: 560px) { .faq-q { font-size: 15px; padding: 16px 18px; } .faq-a-inner { padding: 0 18px 16px; } }
 
     /* ── FOOTER ── */
@@ -1967,31 +1974,48 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">How do we work together?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">Just DM me. Send your footage along with a couple of reference videos, I'll confirm the scope and timeline, and we get started — simple and direct.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><ul class="faq-points">
+          <li>DM me on social media to start the process.</li>
+          <li>Not sure yet? <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer">DM me</a> and we'll talk it through.</li>
+        </ul></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Can you match my editing style?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">Yes. Share a few reference videos or past edits and I'll match the pacing, captions and overall feel you're going for.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><ul class="faq-points">
+          <li>Yes. Send me a reference link and I'll tell you straight.</li>
+          <li>There are hundreds of styles out there, and new ones every month, so I always confirm against a real example first.</li>
+        </ul></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Do you edit both long-form and Shorts?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">Both — full long-form videos and short-form Reels, Shorts and TikToks, including repurposing a long-form video into shorts.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What does a typical project look like?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">You send raw footage and notes, I deliver a first draft, we refine it over a round or two of revisions, then you get the final export ready to post.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><ul class="faq-points">
+          <li>We agree to work together and you send me your files.</li>
+          <li>I confirm everything arrived and the edit begins.</li>
+          <li>You get updates at every stage until final delivery.</li>
+        </ul></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How quickly can you deliver?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">Turnaround depends on the length and complexity of the edit. DM me your project and I'll give you a clear timeline upfront before we start.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><ul class="faq-points">
+          <li>Depends on the length and complexity of the edit.</li>
+          <li>You get a concrete deadline before work starts, and I keep it.</li>
+        </ul></div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How many revisions?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">We revise until it's right within the agreed scope. I'd rather nail it than rush something out that isn't ready.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Up to 3 rounds of revisions.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How much does it cost?<span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner">Pricing depends on the format, length and volume of work. Send me the details of your project and I'll get you a fair quote.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><ul class="faq-points">
+          <li>Depends on the length and complexity of the edit, quoted upfront.</li>
+          <li>Long-form: 50% deposit before work commences.</li>
+          <li>Shorts/Reels: watermarked until full payment is received.</li>
+        </ul></div></div>
       </div>
     </div>
   </div>
