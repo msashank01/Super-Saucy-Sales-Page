@@ -770,8 +770,9 @@
     }
     @media (max-width: 768px) { #v-lb-playpause { display: flex; } }
     /* Keep nav buttons above the full-width mobile video so they're tappable
-       when shown (the iframe would otherwise paint over them). */
-    @media (hover: none) {
+       when shown (the iframe would otherwise paint over them). Use width too —
+       some phones report hover:hover, so hover:none alone misses them. */
+    @media (hover: none), (max-width: 768px) {
       #v-lightbox #v-lb-prev,
       #v-lightbox #v-lb-next,
       #v-lightbox #v-lb-close { z-index: 10; }
