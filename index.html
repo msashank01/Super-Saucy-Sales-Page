@@ -879,11 +879,17 @@
     /* ── FAQ ── */
     .faq-list { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
     .faq-item {
-      border: 1px solid var(--border); border-radius: 14px;
-      background: rgba(255,255,255,.02); overflow: hidden;
-      transition: border-color .25s, box-shadow .25s;
+      border: 1px solid rgba(255,255,255,.09); border-radius: 14px;
+      background: #14141f; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,.35);
+      transition: border-color .25s, box-shadow .25s, transform .25s ease;
     }
-    .faq-item.open { border-color: rgba(99,102,241,.45); box-shadow: 0 0 24px rgba(99,102,241,.12); }
+    .faq-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99,102,241,.55);
+      box-shadow: 0 0 30px rgba(99,102,241,.35), 0 12px 34px rgba(0,0,0,.5);
+    }
+    .faq-item.open { border-color: rgba(99,102,241,.5); box-shadow: 0 0 28px rgba(99,102,241,.22), 0 10px 30px rgba(0,0,0,.45); }
     .faq-q {
       width: 100%; text-align: left; background: none; border: 0; color: var(--text);
       font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 600;
