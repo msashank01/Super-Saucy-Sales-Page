@@ -2591,10 +2591,6 @@ window.lfSlide = makeCarousel('lf-track', 20);
       var ans = item.querySelector('.faq-a');
       item.classList.toggle('open', willOpen);
       ans.style.maxHeight = willOpen ? (ans.scrollHeight + 'px') : '0';
-      // bring the opened card to the centre of the screen
-      if (willOpen) {
-        setTimeout(function(){ item.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 120);
-      }
     });
   });
 })();
