@@ -917,7 +917,7 @@
       flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
       border: 1px solid rgba(99,102,241,.45); color: #a5b4fc;
       display: flex; align-items: center; justify-content: center;
-      transition: transform .3s ease, background .2s, color .2s;
+      transition: transform .5s cubic-bezier(.34,1.56,.64,1), background .3s ease, color .3s ease;
     }
     .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(99,102,241,.22); color: #fff; }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.22,1,.36,1); }
