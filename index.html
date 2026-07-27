@@ -986,6 +986,8 @@
     .f-x:hover { color: var(--text); }
     @media (max-width: 900px) {
       .f-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+      /* nudge the Services column a little to the right on mobile */
+      .f-grid > .f-col:nth-child(3) { padding-left: 28px; }
     }
     @media (max-width: 560px) {
       .f-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
