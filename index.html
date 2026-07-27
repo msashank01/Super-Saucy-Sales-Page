@@ -775,8 +775,9 @@
       #v-lightbox #v-lb-prev,
       #v-lightbox #v-lb-next,
       #v-lightbox #v-lb-close { z-index: 10; }
-      /* Let taps reach the native Vimeo controls (fullscreen, scrubber, etc.) */
-      #v-lb-click-overlay { pointer-events: none !important; }
+      /* Tap the video to reveal our controls; leave the bottom strip so the
+         player's own scrubber/fullscreen stay reachable */
+      #v-lb-click-overlay { pointer-events: auto !important; bottom: 60px !important; }
     }
     .thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -2390,6 +2391,12 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
   // don't bubble out of the iframe)
   var tapTop = document.getElementById('lb-tap-top');
   if (tapTop) tapTop.addEventListener('touchstart', function(e){ showControls(); }, { passive: true });
+  // Tapping the video (overlay) reveals the play/pause + close controls
+  var clickOverlay = document.getElementById('v-lb-click-overlay');
+  if (clickOverlay) {
+    clickOverlay.addEventListener('touchstart', function(){ showControls(); }, { passive: true });
+    clickOverlay.addEventListener('click', function(){ showControls(); });
+  }
 })();
 </script>
 
