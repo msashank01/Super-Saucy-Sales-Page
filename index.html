@@ -1128,13 +1128,36 @@
   <div class="hero-reel" style="position:relative;">
     <iframe
       id="hero-yt"
-      src="https://www.youtube.com/embed/3BYd0rMyL2A?autoplay=1&mute=1&loop=1&playlist=3BYd0rMyL2A&rel=0&modestbranding=1&playsinline=1"
+      src="https://www.youtube.com/embed/3BYd0rMyL2A?enablejsapi=1&mute=1&loop=1&playlist=3BYd0rMyL2A&rel=0&modestbranding=1&playsinline=1"
       title="Showreel"
       allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
       allowfullscreen
       style="width:100%;height:100%;border:0;display:block;"
     ></iframe>
   </div>
+  <script>
+    (function () {
+      var yt = document.getElementById('hero-yt');
+      if (!yt) return;
+      var started = false;
+      function ytCmd(func) {
+        try {
+          yt.contentWindow.postMessage(
+            JSON.stringify({ event: 'command', func: func, args: [] }), '*'
+          );
+        } catch (e) {}
+      }
+      function onScroll() {
+        if (started) return;
+        if (window.pageYOffset > 120) {
+          started = true;
+          ytCmd('playVideo');
+          window.removeEventListener('scroll', onScroll);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
 
   <div class="scroll-hint">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
