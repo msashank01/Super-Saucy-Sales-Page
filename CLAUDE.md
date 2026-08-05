@@ -21,7 +21,7 @@ This is Mohan Sashank's freelance video editing portfolio website. It is a singl
 
 ## Structure Choices
 - **Navigation**: Nav bar (sticky, blurred backdrop)
-- **Hero video**: Showreel — local file `EllIOT PHILLIPS - RE EDIT INTRO.mp4`, played via a native `<video>` element (`#hero-video`) with custom controls. (Previously a Vimeo background embed.)
+- **Hero video**: Showreel — YouTube embed (`#hero-yt` iframe, video ID `3BYd0rMyL2A`, autoplay+muted+loop). (Previously a native `<video>` with custom controls using `EllIOT PHILLIPS - RE EDIT INTRO.mp4`, which is now the first Long Form card.)
 - **Case study style**: Minimal (no video titles — thumbnail, client name, view count only)
 - **Social proof strip**: Scrolling carousel (auto-scrolling, pauses on hover)
 - **About Me section**: None
