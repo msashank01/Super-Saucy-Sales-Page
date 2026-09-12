@@ -1726,6 +1726,48 @@
     </div>
     </div>
 
+    <!-- SHORT FORM -->
+    <div class="sub-divider" id="short-form" style="margin-top:48px; scroll-margin-top:100px;">
+      <span class="sub-divider-label">Short Form</span>
+      <div class="sub-divider-line"></div>
+    </div>
+
+    <div class="grid-glass">
+    <div class="sf-grid">
+
+      <div class="v-card">
+        <div class="thumb port">
+          <iframe src="https://www.youtube.com/embed/b6uZcgB_epM?rel=0&modestbranding=1&playsinline=1" loading="lazy" allowfullscreen title="Video" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port ig-embed">
+          <iframe src="https://www.instagram.com/reel/Dc-00a2ITc5/embed/" loading="lazy" scrolling="no" allowtransparency="true" allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port ig-embed">
+          <iframe src="https://www.instagram.com/reel/DclpJ0XIa9P/embed/" loading="lazy" scrolling="no" allowtransparency="true" allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port ig-embed">
+          <iframe src="https://www.instagram.com/reel/DcN782lIXaF/embed/" loading="lazy" scrolling="no" allowtransparency="true" allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <div class="thumb port ig-embed">
+          <iframe src="https://www.instagram.com/reel/DcTznnQIgw9/embed/" loading="lazy" scrolling="no" allowtransparency="true" allow="autoplay; encrypted-media" style="width:100%;height:100%;border:0;display:block;"></iframe>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
     <!-- CTA after short form -->
     <div class="icta" style="padding-top:52px; padding-bottom:0;">
       <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" class="btn btn-lg">DM Me</a>
@@ -2156,6 +2198,8 @@ document.querySelectorAll('.yt-thumb').forEach(el => {
     var video  = thumb.querySelector('video');
     var media  = iframe || video;
     if (!media) return;
+    // Instagram embeds handle their own playback — skip the custom lightbox
+    if (iframe && /instagram\.com/.test(iframe.getAttribute('src') || '')) return;
     var idx = lbSrcs.length;
     lbSrcs.push({ type: iframe ? 'vimeo' : 'video', src: media.getAttribute('src') });
     lbPort.push(thumb.classList.contains('port'));
