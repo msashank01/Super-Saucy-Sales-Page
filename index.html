@@ -40,14 +40,7 @@
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      cursor: var(--smiley);
     }
-    /* Smiley cursor everywhere, including over links/buttons/videos */
-    a, button, input, select, textarea, label, summary, [onclick], [role="button"],
-    .btn, .t-btn, .lf-arrow, .thumb, .yt-thumb, .c-chip, .nav-link, .f-social a {
-      cursor: var(--smiley) !important;
-    }
-    @media (hover: none), (max-width: 768px) { body { cursor: auto; } }
     .bg-orbs {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
     }
@@ -195,7 +188,6 @@
       --muted:   rgba(226,232,240,.45);
       --border:  rgba(226,232,240,.07);
       --card:    rgba(226,232,240,.03);
-      --smiley:  url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2742%27%20height%3D%2742%27%20viewBox%3D%270%200%2042%2042%27%3E%3Ccircle%20cx%3D%2721%27%20cy%3D%2721%27%20r%3D%2715%27%20fill%3D%27none%27%20stroke%3D%27rgba%28129%2C140%2C248%2C.35%29%27%20stroke-width%3D%274%27%2F%3E%3Ccircle%20cx%3D%2721%27%20cy%3D%2721%27%20r%3D%2714%27%20fill%3D%27rgba%2820%2C20%2C35%2C.25%29%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%271.8%27%2F%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2718%27%20r%3D%271.7%27%20fill%3D%27%23ffffff%27%2F%3E%3Ccircle%20cx%3D%2726%27%20cy%3D%2718%27%20r%3D%271.7%27%20fill%3D%27%23ffffff%27%2F%3E%3Cpath%20d%3D%27M15%2024%20Q21%2030%2027%2024%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%271.8%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E") 21 21, auto;
     }
 
     /* ── LAYOUT ── */
