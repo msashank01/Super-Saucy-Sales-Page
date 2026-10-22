@@ -967,7 +967,10 @@
     footer { border-top: 1px solid var(--border); padding: 64px 0 40px; background: rgba(0,0,0,.4); }
     .f-grid {
       display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px;
+      align-items: start;
     }
+    /* Align the link/contact column headings with the brand name (beside the avatar) */
+    .f-grid .f-col { padding-top: 20px; }
     /* Brand banner (photo left, name + tagline right) */
     .brand-banner {
       display: grid; grid-template-columns: 1.05fr 1fr;
@@ -998,7 +1001,7 @@
     }
     /* Desktop: vertically center the Contact column and center its contents
        (heading, icons, DM Me) horizontally so they line up */
-    .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; }
     /* Larger Contact icons + DM Me button */
     .f-grid > .f-col:last-child .f-social { gap: 18px; }
     .f-grid > .f-col:last-child .f-social a { width: 58px; height: 58px; }
