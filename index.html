@@ -968,33 +968,25 @@
     .f-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-bottom: 56px;
     }
-    /* Brand banner (photo left, name + tagline right) */
-    .brand-banner {
-      display: grid; grid-template-columns: 1.05fr 1fr;
-      border: 1px solid rgba(255,255,255,.1); border-radius: 22px; overflow: hidden;
-      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(78,122,70,.06) 60%, rgba(255,255,255,.02) 100%);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 20px 60px rgba(0,0,0,.4);
-      margin-bottom: 56px; min-height: 360px;
-    }
-    .brand-banner .bb-photo {
-      background: url("mohan-banner.jpg") no-repeat center 28% / cover;
-      -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
-              mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
-    }
-    .brand-banner .bb-text {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 44px 52px;
-    }
-    .brand-banner .bb-name {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1px;
-      font-size: clamp(42px, 5vw, 66px); line-height: 1; color: var(--text); margin-bottom: 16px;
-    }
-    .brand-banner .bb-name .dot { color: var(--accent); }
-    .brand-banner .bb-text p { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 430px; margin: 0; }
+    /* Footer layout: left brand/description/contact, right vertical nav */
+    .f-main { display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; }
+    .f-left { max-width: 680px; }
+    .f-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+    .f-brand img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,.14); display: block; }
+    .f-name { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.5px; color: var(--accent); }
+    .f-desc { font-size: 17px; line-height: 1.75; color: var(--muted); margin-bottom: 30px; }
+    .f-contact h4 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+    .f-contact-line { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-size: 16px; transition: color .2s; }
+    .f-contact-line:hover { color: var(--accent); }
+    .f-contact-line svg { color: var(--accent); flex-shrink: 0; }
+    .f-rights { margin-top: 34px; color: var(--accent); font-weight: 600; font-size: 15px; letter-spacing: .2px; }
+    .f-nav { display: flex; flex-direction: column; align-items: flex-end; gap: 22px; padding-top: 6px; white-space: nowrap; }
+    .f-nav a { font-size: 18px; font-weight: 600; color: var(--text); transition: color .2s; }
+    .f-nav a:hover { color: var(--accent); }
+    .f-nav .f-nav-cta { color: var(--accent); }
     @media (max-width: 760px) {
-      .brand-banner { grid-template-columns: 1fr; min-height: 0; }
-      .brand-banner .bb-photo { min-height: 280px; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
-      .brand-banner .bb-text { padding: 28px 28px 36px; text-align: center; align-items: center; }
+      .f-main { flex-direction: column; gap: 36px; }
+      .f-nav { align-items: flex-start; flex-flow: row wrap; gap: 16px 24px; }
     }
     /* Desktop: vertically center the Contact column and center its contents
        (heading, icons, DM Me) horizontally so they line up */
@@ -1907,61 +1899,49 @@
 <footer>
   <div class="container">
 
-    <!-- Brand banner -->
-    <div class="brand-banner">
-      <div class="bb-photo"></div>
-      <div class="bb-text">
-        <div class="bb-name">Mohan<span class="dot">.</span></div>
-        <p>Helping creators and brands turn raw footage into content that holds attention and drives growth.</p>
-      </div>
-    </div>
+    <div class="f-main">
 
-    <div class="f-grid">
-
-      <!-- Quick Links -->
-      <div class="f-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#results">Results</a></li>
-        </ul>
-      </div>
-
-      <!-- Services -->
-      <div class="f-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#long-form">Long Form</a></li>
-          <li><a href="#ugc-ads">UGC Ads</a></li>
-          <li><a href="#viral-edits">Viral Edits</a></li>
-          <li><a href="#ugc-ads">Reels & Shorts</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div class="f-col">
-        <h4>Contact</h4>
-        <div class="f-social" style="margin-top:4px;">
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mohansashank02@gmail.com" target="_blank" rel="noopener noreferrer" title="Email">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-          </a>
-          <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" title="X / Twitter">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/sashank_mohan/" target="_blank" rel="noopener noreferrer" title="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+      <!-- Left block: brand, description, contact, rights -->
+      <div class="f-left">
+        <div class="f-brand">
+          <img src="favicon3.png" alt="Mohan Sashank">
+          <span class="f-name">Mohan Sashank</span>
         </div>
-        <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:20px;">DM Me</a>
+
+        <p class="f-desc">
+          Freelance video editor crafting videos that keep viewers hooked from the very first second to the last frame.
+          I edit short-form and long-form — YouTube content, UGC ads, viral edits, and reels — with pacing, storytelling,
+          and visuals that make every moment stand out. Turning raw footage into scroll-stopping content that looks
+          professional, flows smoothly, and connects.
+        </p>
+
+        <div class="f-contact">
+          <h4>Contact Me</h4>
+          <a class="f-contact-line" href="https://mail.google.com/mail/?view=cm&fs=1&to=mohansashank02@gmail.com" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <span>mohansashank02@gmail.com</span>
+          </a>
+          <div class="f-social" style="margin-top:16px;">
+            <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" title="X / Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/sashank_mohan/" target="_blank" rel="noopener noreferrer" title="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <p class="f-rights">All Rights Reserved © 2026 Mohan Sashank</p>
       </div>
 
-    </div>
+      <!-- Right: vertical nav -->
+      <div class="f-nav">
+        <a href="#work">Portfolio</a>
+        <a href="#home">Home</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="https://x.com/sashank_mohan" target="_blank" rel="noopener noreferrer" class="f-nav-cta">Get Started</a>
+      </div>
 
-    <div class="f-bottom" style="justify-content:center;">
-      <span>© 2026 Mohan Sashank. All rights reserved.</span>
     </div>
 
   </div>
