@@ -366,35 +366,6 @@
       padding: 120px 48px 80px;
       position: relative;
     }
-    /* Keep all hero text/controls above the portrait */
-    .hero > :not(.hero-portrait) { position: relative; z-index: 2; }
-    /* Desaturated portrait with green glow, edges faded into the bg (ref style) */
-    .hero-portrait {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -40%);
-      width: min(52vw, 480px); z-index: 0; pointer-events: none;
-    }
-    .hero-portrait::before {
-      content: ''; position: absolute; inset: -18% -24%; z-index: -1;
-      background: radial-gradient(circle at 50% 44%, rgba(16,185,129,.55) 0%, rgba(16,185,129,.20) 30%, transparent 62%);
-      filter: blur(14px);
-    }
-    .hero-portrait img {
-      width: 100%; display: block;
-      filter: grayscale(1) contrast(1.05) brightness(.82);
-      -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.55) 60%, transparent 73%);
-              mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.55) 60%, transparent 73%);
-    }
-    .hero-portrait::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(180deg, rgba(16,185,129,.16) 0%, rgba(16,185,129,.05) 100%);
-      mix-blend-mode: screen;
-      -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.55) 60%, transparent 73%);
-              mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.55) 60%, transparent 73%);
-    }
-    @media (max-width: 640px) {
-      .hero-portrait { width: 80vw; transform: translate(-50%, -38%); opacity: .75; }
-    }
     .hero::before {
       content: '';
       position: absolute; inset: 0;
@@ -1149,9 +1120,6 @@
      HERO
 ════════════════════════════════ -->
 <section class="hero" id="home">
-  <div class="hero-portrait" aria-hidden="true">
-    <img src="mohan-portrait.webp" alt="Mohan Sashank" loading="eager">
-  </div>
   <span class="hero-badge">Video Editor</span>
 
   <h1>
