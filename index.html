@@ -734,8 +734,11 @@
     .lf-nav { display: flex; justify-content: center; gap: 18px; margin-top: 28px; }
     /* Each long-form video sits in its own nested box: a padded card box
        with the video nested inside it (box-in-box) */
-    .lf-track .v-card {
-      padding: 20px;
+    /* Long-form thumbnail grid (YouTube-style tiles) */
+    .lf-cards { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 0; }
+    @media (max-width: 900px) { .lf-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .lf-cards { grid-template-columns: 1fr; } }
+    .lf-cards .v-card {
       background: transparent;
       border: 0;
       overflow: visible;
@@ -743,11 +746,11 @@
       box-shadow: none;
     }
     /* Soft indigo glow spilling under each video (like short-form) */
-    .lf-track .thumb { border-radius: 9px; box-shadow: 0 18px 42px -10px rgba(99,102,241,.55); }
-    .lf-track .thumb video, .lf-track .thumb iframe { clip-path: inset(0 round 9px); }
+    .lf-cards .thumb { border-radius: 12px; box-shadow: 0 18px 42px -12px rgba(99,102,241,.5); }
+    .lf-cards .thumb video, .lf-cards .thumb iframe { clip-path: inset(0 round 12px); }
     /* Pop the video on hover (no card frame) */
-    .lf-track .v-card:hover { transform: scale(1.04); }
-    .lf-track .v-card:hover .thumb { box-shadow: 0 22px 52px -8px rgba(99,102,241,.7); }
+    .lf-cards .v-card:hover { transform: scale(1.035); }
+    .lf-cards .v-card:hover .thumb { box-shadow: 0 22px 52px -8px rgba(99,102,241,.7); }
 
     /* Video card */
     .v-card {
@@ -1542,8 +1545,7 @@
     </div>
 
     <div class="grid-glass">
-      <div class="lf-viewport">
-      <div class="lf-track" id="lf-track">
+      <div class="lf-grid lf-cards">
 
       <div class="v-card">
         <div class="thumb land">
@@ -1594,12 +1596,6 @@
       </div>
 
       </div>
-      </div>
-    </div>
-
-    <div class="lf-nav">
-      <button class="lf-arrow" onclick="lfSlide(-1)" aria-label="Previous">&#8249;</button>
-      <button class="lf-arrow" onclick="lfSlide(1)" aria-label="Next">&#8250;</button>
     </div>
 
     <!-- CTA after long form -->
