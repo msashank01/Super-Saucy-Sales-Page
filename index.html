@@ -751,12 +751,16 @@
       transition: transform .3s cubic-bezier(.22,1,.36,1);
       box-shadow: none;
     }
-    /* Soft indigo glow spilling under each video (like short-form) */
-    .lf-cards .thumb { border-radius: 12px; box-shadow: 0 18px 42px -12px rgba(99,102,241,.5); }
-    .lf-cards .thumb video, .lf-cards .thumb iframe { clip-path: inset(0 round 12px); }
+    /* Soft indigo glow spilling under each video (like short-form) + subtle stroke */
+    .lf-cards .thumb {
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 42px -12px rgba(99,102,241,.5);
+    }
+    .lf-cards .thumb video, .lf-cards .thumb iframe { clip-path: inset(0 round 11px); }
     /* Pop the video on hover (no card frame) */
     .lf-cards .v-card:hover { transform: scale(1.035); }
-    .lf-cards .v-card:hover .thumb { box-shadow: 0 22px 52px -8px rgba(99,102,241,.7); }
+    .lf-cards .v-card:hover .thumb { border-color: rgba(129,140,248,.6); box-shadow: 0 22px 52px -8px rgba(99,102,241,.7); }
 
     /* Video card */
     .v-card {
