@@ -966,7 +966,7 @@
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 64px 0 40px; background: rgba(0,0,0,.4); }
     .f-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-bottom: 56px;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px;
     }
     /* Brand banner (photo left, name + tagline right) */
     .brand-banner {
@@ -1004,14 +1004,11 @@
     .f-grid > .f-col:last-child .f-social a { width: 58px; height: 58px; }
     .f-grid > .f-col:last-child .f-social svg { width: 24px; height: 24px; }
     .f-grid > .f-col:last-child .btn { font-size: 16px; padding: 14px 38px; border-radius: 9px; }
-    .f-col-brand { margin-top: -55px; }
-    .f-col-brand .logo-lg {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 34px; font-weight: 700; letter-spacing: -.5px; color: var(--text);
-      display: flex; align-items: center; gap: 0; margin-bottom: 16px;
-      transform: translateX(-18px);
-    }
-    .f-col-brand p { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 300px; margin-bottom: 20px; margin-top: -22px; }
+    .f-col-brand { margin-top: 0; }
+    .f-col-brand .fb-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .f-col-brand .fb-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,.14); display: block; }
+    .f-col-brand .fb-name { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -.5px; color: var(--accent); }
+    .f-col-brand .fb-desc { font-size: 15.5px; color: var(--muted); line-height: 1.7; max-width: 430px; }
     .f-social { display: flex; gap: 14px; }
     .f-social a {
       display: flex; align-items: center; justify-content: center;
@@ -1907,16 +1904,16 @@
 <footer>
   <div class="container">
 
-    <!-- Brand banner -->
-    <div class="brand-banner">
-      <div class="bb-photo"></div>
-      <div class="bb-text">
-        <div class="bb-name">Mohan<span class="dot">.</span></div>
-        <p>Helping creators and brands turn raw footage into content that holds attention and drives growth.</p>
-      </div>
-    </div>
-
     <div class="f-grid">
+
+      <!-- Brand -->
+      <div class="f-col-brand">
+        <div class="fb-head">
+          <img class="fb-avatar" src="favicon3.png" alt="Mohan Sashank">
+          <span class="fb-name">Mohan Sashank</span>
+        </div>
+        <p class="fb-desc">Freelance video editor crafting videos that keep viewers hooked from the very first second to the last frame. I edit short-form and long-form — YouTube content, UGC ads, viral edits, and reels — with pacing, storytelling, and visuals that make every moment stand out. Turning raw footage into scroll-stopping content that looks professional, flows smoothly, and connects.</p>
+      </div>
 
       <!-- Quick Links -->
       <div class="f-col">
