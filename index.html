@@ -966,7 +966,35 @@
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 64px 0 40px; background: rgba(0,0,0,.4); }
     .f-grid {
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-bottom: 56px;
+    }
+    /* Brand banner (photo left, name + tagline right) */
+    .brand-banner {
+      display: grid; grid-template-columns: 1.05fr 1fr;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 22px; overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(78,122,70,.06) 60%, rgba(255,255,255,.02) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 20px 60px rgba(0,0,0,.4);
+      margin-bottom: 56px; min-height: 360px;
+    }
+    .brand-banner .bb-photo {
+      background: url("mohan-banner.jpg") no-repeat center 28% / cover;
+      -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
+              mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
+    }
+    .brand-banner .bb-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 44px 52px;
+    }
+    .brand-banner .bb-name {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1px;
+      font-size: clamp(42px, 5vw, 66px); line-height: 1; color: var(--text); margin-bottom: 16px;
+    }
+    .brand-banner .bb-name .dot { color: var(--accent); }
+    .brand-banner .bb-text p { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 430px; margin: 0; }
+    @media (max-width: 760px) {
+      .brand-banner { grid-template-columns: 1fr; min-height: 0; }
+      .brand-banner .bb-photo { min-height: 280px; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
+      .brand-banner .bb-text { padding: 28px 28px 36px; text-align: center; align-items: center; }
     }
     /* Desktop: vertically center the Contact column and center its contents
        (heading, icons, DM Me) horizontally so they line up */
@@ -1879,13 +1907,16 @@
 <footer>
   <div class="container">
 
-    <div class="f-grid">
-
-      <!-- Brand col -->
-      <div class="f-col-brand">
-        <div class="logo-lg"><img src="favicon3.png" alt="Mohan Sashank" style="height:2.2em;width:2.2em;object-fit:cover;border-radius:50%;display:block;margin-right:10px;border:1px solid rgba(255,255,255,.12);"><span style="display:inline-block;">Mohan<span class="dot" style="color:var(--accent);">.</span></span></div>
+    <!-- Brand banner -->
+    <div class="brand-banner">
+      <div class="bb-photo"></div>
+      <div class="bb-text">
+        <div class="bb-name">Mohan<span class="dot">.</span></div>
         <p>Helping creators and brands turn raw footage into content that holds attention and drives growth.</p>
       </div>
+    </div>
+
+    <div class="f-grid">
 
       <!-- Quick Links -->
       <div class="f-col">
