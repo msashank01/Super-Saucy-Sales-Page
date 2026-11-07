@@ -966,52 +966,24 @@
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 64px 0 40px; background: rgba(0,0,0,.4); }
     .f-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-bottom: 56px;
-      align-items: start;
-    }
-    /* Align the link/contact column headings with the brand name (beside the avatar) */
-    .f-grid .f-col { padding-top: 20px; }
-    /* Brand banner (photo left, name + tagline right) */
-    .brand-banner {
-      display: grid; grid-template-columns: 1.05fr 1fr;
-      border: 1px solid rgba(255,255,255,.1); border-radius: 22px; overflow: hidden;
-      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(99,102,241,.06) 60%, rgba(255,255,255,.02) 100%);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 20px 60px rgba(0,0,0,.4);
-      margin-bottom: 56px; min-height: 360px;
-    }
-    .brand-banner .bb-photo {
-      background: url("mohan-banner.jpg") no-repeat center 28% / cover;
-      -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
-              mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
-    }
-    .brand-banner .bb-text {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 44px 52px;
-    }
-    .brand-banner .bb-name {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1px;
-      font-size: clamp(42px, 5vw, 66px); line-height: 1; color: var(--text); margin-bottom: 16px;
-    }
-    .brand-banner .bb-name .dot { color: var(--accent); }
-    .brand-banner .bb-text p { font-size: 18px; color: var(--muted); line-height: 1.6; max-width: 430px; margin: 0; }
-    @media (max-width: 760px) {
-      .brand-banner { grid-template-columns: 1fr; min-height: 0; }
-      .brand-banner .bb-photo { min-height: 280px; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
-      .brand-banner .bb-text { padding: 28px 28px 36px; text-align: center; align-items: center; }
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px;
     }
     /* Desktop: vertically center the Contact column and center its contents
        (heading, icons, DM Me) horizontally so they line up */
-    .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; }
+    .f-grid > .f-col:last-child { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
     /* Larger Contact icons + DM Me button */
     .f-grid > .f-col:last-child .f-social { gap: 18px; }
     .f-grid > .f-col:last-child .f-social a { width: 58px; height: 58px; }
     .f-grid > .f-col:last-child .f-social svg { width: 24px; height: 24px; }
     .f-grid > .f-col:last-child .btn { font-size: 16px; padding: 14px 38px; border-radius: 9px; }
-    .f-col-brand { margin-top: 0; margin-left: -26px; }
-    .f-col-brand .fb-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .f-col-brand .fb-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,.14); display: block; }
-    .f-col-brand .fb-name { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -.5px; color: var(--accent); }
-    .f-col-brand .fb-desc { font-size: 15.5px; color: var(--muted); line-height: 1.7; max-width: 430px; }
+    .f-col-brand { margin-top: -55px; }
+    .f-col-brand .logo-lg {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: -.5px; color: var(--text);
+      display: flex; align-items: center; gap: 0; margin-bottom: 16px;
+      transform: translateX(-18px);
+    }
+    .f-col-brand p { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 300px; margin-bottom: 20px; margin-top: -22px; }
     .f-social { display: flex; gap: 14px; }
     .f-social a {
       display: flex; align-items: center; justify-content: center;
@@ -1908,6 +1880,12 @@
   <div class="container">
 
     <div class="f-grid">
+
+      <!-- Brand col -->
+      <div class="f-col-brand">
+        <div class="logo-lg"><img src="logo1.png" alt="Logo" style="height:4.5em;width:auto;display:block;margin-right:-8px;"><span style="transform:translateY(16px);display:inline-block;">Mohan<span class="dot" style="color:var(--accent);">.</span></span></div>
+        <p>Helping creators and brands turn raw footage into content that holds attention and drives growth.</p>
+      </div>
 
       <!-- Quick Links -->
       <div class="f-col">
